@@ -1,0 +1,27 @@
+type Hello{
+    text: String!,
+    ramdonNumber: Int
+}
+
+type Phone{
+    id: ID,
+    phone: String!
+}
+
+type Customer{
+    id: ID,
+    name: String!,
+    lastName: String!
+    phones: [Phone!]
+}
+
+
+type Query{
+    allCustomers: [Customer!]!
+    findCustomers(input:DocumentTypeInput): Customer
+}
+
+input DocumentTypeInput {
+    type: String!,
+    number: String!
+}
