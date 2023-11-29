@@ -8,10 +8,6 @@ import org.springframework.web.reactive.function.client.WebClient;
 @SpringBootApplication
 public class MsCustomersGraphqlApplication {
 
-    @Bean
-    public WebClient webClient() {
-        return WebClient.builder().baseUrl("http://localhost:9060/").build();
-    }
 
     public static void main(String[] args) {
         SpringApplication.run(MsCustomersGraphqlApplication.class, args);

@@ -1,4 +1,7 @@
 
+microservices.customers:
+  url: ${MSCUSTOMERS_URL:http://localhost:9060/}
+
 
 dgs:
   graphql:

@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  customers:
+    image: mzegarra/ms-customers-sg:1.0.1
+    platform: linux/amd64
+    build:
+      context: ./ms-customers
+      dockerfile: ./src/main/docker/Dockerfile
+    ports:
+      - "9060:9060"
+  accounts:
+    image: mzegarra/ms-accounts-sg:1.0.1
+    platform: linux/amd64
+    build:
+      context: ./ms-accounts
+      dockerfile: ./src/main/docker/Dockerfile
+    ports:
+      - "9061:9061"
+  customers-graphql:
+    image: mzegarra/ms-customers-graphql-sg:1.0.1
+    platform: linux/amd64
+    build:
+      context: ./ms-customers-graphql
+      dockerfile: ./src/main/docker/Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - MSCUSTOMERS_URL=http://customers:9060/
