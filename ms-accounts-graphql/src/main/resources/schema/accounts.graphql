@@ -1,0 +1,24 @@
+extend schema
+@link(url: "https://specs.apollo.dev/federation/v2.3",
+    import: ["@key","@extends","@external"])
+
+type Account{
+    "Id del cuenta"
+    id: ID,
+    "Número del cuenta"
+    number: String!,
+    "Saldo del cuenta"
+    balance: Float!,
+}
+
+type Customer @key(fields: "id") @extends {
+    "Id del Cliente"
+    id: ID @external,
+    "Cuentas del cliente"
+    accounts: [Account!]!
+}
+
+
+type Query{
+    findAccountById(id:Int): Account
+}

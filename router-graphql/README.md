@@ -16,8 +16,14 @@ service:super-bank:1kW4k9OmDlqrZcV1LnR8hg
 ````
 
 ```
-rover subgraph publish super-bank@current \
-  --schema ./ms-customers-graphql/src/main/resources/schema/customers.graphql
-  --name customers-subgraphs \
+export APOLLO_KEY='service:super-bank:1kW4k9OmDlqrZcV1LnR8hg'
+rover subgraph publish super-bank@current --name customers-subgraphs --schema ./ms-customers-graphql/src/main/resources/schema/customers.graphql  \
   --routing-url https://dev-ms-customers-graphql-sg.azurewebsites.net/graphql
+  
+rover subgraph check super-bank@current  --name customers-subgraphs --schema ./ms-customers-graphql/src/main/resources/schema/customers.graphql
+
+rover subgraph check super-bank@current  --name accounts-subgraphs --schema ./ms-accounts-graphql/src/main/resources/schema/accounts.graphql
+
+rover subgraph publish super-bank@current --name accounts-subgraphs --schema ./ms-accounts-graphql/src/main/resources/schema/accounts.graphql \
+   --routing-url https://dev-ms-accounts-graphql-sg.azurewebsites.net/graphql 
 ```

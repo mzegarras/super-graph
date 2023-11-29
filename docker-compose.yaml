@@ -16,8 +16,18 @@ services:
       dockerfile: ./src/main/docker/Dockerfile
     ports:
       - "9061:9061"
+  accounts-graphql:
+    image: mzegarra/ms-accounts-graphql-sg:1.0.6
+    platform: linux/amd64
+    build:
+      context: ./ms-accounts-graphql
+      dockerfile: ./src/main/docker/Dockerfile
+    ports:
+      - "8081:8080"
+    environment:
+      - MSACCOUNTS_URL=http://accounts:9061/
   customers-graphql:
-    image: mzegarra/ms-customers-graphql-sg:1.0.1
+    image: mzegarra/ms-customers-graphql-sg:1.0.2
     platform: linux/amd64
     build:
       context: ./ms-customers-graphql
