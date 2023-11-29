@@ -2,6 +2,7 @@ package com.demo.msaccountsgraphql.component;
 
 import com.demo.msaccountsgraphql.codegen.types.Account;
 import com.demo.msaccountsgraphql.codegen.types.Customer;
+import com.demo.msaccountsgraphql.codegen.types.Transaction;
 import com.netflix.graphql.dgs.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.ParameterizedTypeReference;
@@ -40,7 +41,7 @@ public class AccountDataResolver {
     }
 
     @DgsData(parentType = "Customer", field = "accounts")
-    public List<Account> actors(DgsDataFetchingEnvironment dfe) {
+    public List<Account> getAccounts(DgsDataFetchingEnvironment dfe) {
 
         log.info("customer - before");
         Customer customer = dfe.getSource();
@@ -57,7 +58,20 @@ public class AccountDataResolver {
                 }))
 
                 .block();
+    }
 
+    @DgsData(parentType = "Account", field = "transactions")
+    public List<Transaction> actors(DgsDataFetchingEnvironment dfe) {
 
+        log.info("customer - before");
+        Account account = dfe.getSource();
+
+        return webClient
+                .get()
+                .uri("/accounts/" + account.getId() + "/transactions")
+                .exchangeToMono(response -> response.bodyToMono(new ParameterizedTypeReference<List<Transaction>>() {
+                }))
+
+                .block();
     }
 }

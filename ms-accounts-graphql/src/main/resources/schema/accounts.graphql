@@ -2,6 +2,7 @@ extend schema
 @link(url: "https://specs.apollo.dev/federation/v2.3",
     import: ["@key","@extends","@external"])
 
+"Cuenta de cliente"
 type Account{
     "Id del cuenta"
     id: ID,
@@ -9,6 +10,9 @@ type Account{
     number: String!,
     "Saldo del cuenta"
     balance: Float!,
+
+    "Movimientos de la cuenta"
+    transactions:[Transaction!]
 }
 
 type Customer @key(fields: "id") @extends {
@@ -18,6 +22,17 @@ type Customer @key(fields: "id") @extends {
     accounts: [Account!]!
 }
 
+"Movimientos de una cuenta"
+type Transaction{
+    "Id del movimiento"
+    id: ID,
+    "Fecha de transacción"
+    fecha: String!,
+    "Hora de transacción"
+    hora: String!,
+    "Monto del movimiento"
+    amount: Float!,
+}
 
 type Query{
     findAccountById(id:Int): Account
