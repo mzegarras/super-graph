@@ -33,10 +33,6 @@ public class AccountDataResolver {
 
     }
 
-    /*@DgsEntityFetcher(name = "Customer")
-    fun show(values: Map<String, Any>): Mono<Show> {
-        return Mono.just(Show( values.get("id") as String, null))
-    }*/
 
     @DgsEntityFetcher(name = "Customer")
     public Customer customer(Map<String, Object> values) {
@@ -50,7 +46,7 @@ public class AccountDataResolver {
         Customer customer = dfe.getSource();
         log.trace("customer:" + customer.getId());
 
-        /*var uri = UriComponentsBuilder.fromUriString("/customers/search")
+        var uri = UriComponentsBuilder.fromUriString("/accounts/search")
                 .queryParam("customerId", customer.getId())
                 .build().toUri();
 
@@ -60,19 +56,8 @@ public class AccountDataResolver {
                 .exchangeToMono(response -> response.bodyToMono(new ParameterizedTypeReference<List<Account>>() {
                 }))
 
-                .block();*/
+                .block();
 
-        return List.of(
-                Account.newBuilder()
-                        .id("1")
-                        .balance(100)
-                        .number("11")
-                        .build(),
-                Account.newBuilder()
-                        .id("2")
-                        .balance(200)
-                        .number("12")
-                        .build()
-        );
+
     }
 }

@@ -17,7 +17,7 @@ services:
     ports:
       - "9061:9061"
   accounts-graphql:
-    image: mzegarra/ms-accounts-graphql-sg:1.0.6
+    image: mzegarra/ms-accounts-graphql-sg:1.0.8
     platform: linux/amd64
     build:
       context: ./ms-accounts-graphql
