@@ -44,3 +44,13 @@ services:
       - "8080:8080"
     environment:
       - MSCUSTOMERS_URL=http://customers:9060/
+  risks-graphql:
+    image: mzegarra/ms-risks-graphql-sg:1.0.1
+    platform: linux/amd64
+    build:
+      context: ./ms-risks-graphql
+      dockerfile: ./src/main/docker/Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - MSCUSTOMERS_URL=http://risks:9062/

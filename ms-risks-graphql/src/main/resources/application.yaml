@@ -1,0 +1,11 @@
+
+
+microservices.risks:
+  url: ${MSRISKS_URL:http://localhost:9062/}
+
+
+dgs:
+  graphql:
+    schema-location:
+      - "classpath*:schema/**/*.graphql*"
+      - "classpath*:schema/**/*.gql"

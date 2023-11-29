@@ -1,0 +1,20 @@
+extend schema
+@link(url: "https://specs.apollo.dev/federation/v2.3",
+    import: ["@key","@extends","@external"])
+
+"Evaluacion del cliente"
+type Evaluation {
+    "Id de la evaluación"
+    id: ID,
+    "Clasificación BCP"
+    calificacionBCP: String!,
+    "Clasificación SBS"
+    calificacionSBS: String!,
+}
+
+type Customer @key(fields: "id") @extends {
+    "Id del Cliente"
+    id: ID @external,
+    "Evaluación del cliente"
+    evaluation: Evaluation!
+}
