@@ -1,5 +1,13 @@
 version: '3.8'
 services:
+  risks:
+    image: mzegarra/ms-risks-sg:1.0.0
+    platform: linux/amd64
+    build:
+      context: ./ms-risk
+      dockerfile: ./src/main/docker/Dockerfile
+    ports:
+      - "9062:9062"
   customers:
     image: mzegarra/ms-customers-sg:1.0.1
     platform: linux/amd64
