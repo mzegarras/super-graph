@@ -20,26 +20,33 @@ INSERT INTO accounts(id,number,balance,currency,customerId) values (7,'193-11111
 INSERT INTO accounts(id,number,balance,currency,customerId) values (8,'193-1111111-2',2000,1,3);
 INSERT INTO accounts(id,number,balance,currency,customerId) values (9,'193-1111111-3',3000,1,3);
 
-
-/*
-CREATE TABLE IF NOT EXISTS phones (
+CREATE TABLE IF NOT EXISTS transactions (
     id INT NOT NULL,
-    phone VARCHAR(255),
-    company VARCHAR(255),
-    customerId INT NOT NULL,
+    fecha VARCHAR(10),
+    hora VARCHAR(10),
+    amount NUMERIC(10,4),
+    currency INT,
+    accountId INT,
     PRIMARY KEY (id)
     );
 
-truncate table phones;
-INSERT INTO phones(id,phone,company,customerId) values (1,'999999999','Claro',1);
-INSERT INTO phones(id,phone,company,customerId) values (2,'999999998','Claro',1);
-INSERT INTO phones(id,phone,company,customerId) values (3,'999999997','Claro',1);
+truncate table transactions;
+INSERT INTO transactions(id,fecha,hora,amount,currency,accountId) values (1,'2023-11-29','02:00',100,1,1);
+INSERT INTO transactions(id,fecha,hora,amount,currency,accountId) values (2,'2023-11-29','02:01',-50,1,1);
+INSERT INTO transactions(id,fecha,hora,amount,currency,accountId) values (3,'2023-11-29','02:03',-50,1,1);
 
-INSERT INTO phones(id,phone,company,customerId) values (4,'899999999','Claro',2);
-INSERT INTO phones(id,phone,company,customerId) values (5,'899999998','Claro',2);
-INSERT INTO phones(id,phone,company,customerId) values (6,'899999997','Claro',2);
+INSERT INTO transactions(id,fecha,hora,amount,currency,accountId) values (4,'2023-11-29','02:00',500,1,2);
+INSERT INTO transactions(id,fecha,hora,amount,currency,accountId) values (5,'2023-11-29','02:01',-50,1,2);
+INSERT INTO transactions(id,fecha,hora,amount,currency,accountId) values (6,'2023-11-29','02:03',-50,1,2);
 
-INSERT INTO phones(id,phone,company,customerId) values (7,'799999999','Claro',3);
-INSERT INTO phones(id,phone,company,customerId) values (8,'799999998','Claro',3);
-INSERT INTO phones(id,phone,company,customerId) values (9,'799999997','Claro',3);
- */
+INSERT INTO transactions(id,fecha,hora,amount,currency,accountId) values (7,'2023-11-29','02:00',500,1,3);
+INSERT INTO transactions(id,fecha,hora,amount,currency,accountId) values (8,'2023-11-29','02:01',-50,1,3);
+INSERT INTO transactions(id,fecha,hora,amount,currency,accountId) values (9,'2023-11-29','02:03',-50,1,3);
+
+INSERT INTO transactions(id,fecha,hora,amount,currency,accountId) values (10,'2023-11-29','02:00',800,1,4);
+INSERT INTO transactions(id,fecha,hora,amount,currency,accountId) values (11,'2023-11-29','02:01',-50,1,5);
+INSERT INTO transactions(id,fecha,hora,amount,currency,accountId) values (12,'2023-11-29','02:03',-50,1,6);
+
+INSERT INTO transactions(id,fecha,hora,amount,currency,accountId) values (13,'2023-11-29','02:00',1000,1,7);
+INSERT INTO transactions(id,fecha,hora,amount,currency,accountId) values (14,'2023-11-29','02:01',-10,1,8);
+INSERT INTO transactions(id,fecha,hora,amount,currency,accountId) values (15,'2023-11-29','02:03',-10,1,9);
