@@ -1,5 +1,10 @@
-
-
-spring.r2dbc.url: r2dbc:h2:file:///./testdb2
+spring:
+  jackson:
+    date-format: "YYYY-MM-dd"
+    serialization:
+      write_dates_as_timestamps: false
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+  r2dbc.url: r2dbc:h2:file:///./testdb2
 server:
   port: 9061

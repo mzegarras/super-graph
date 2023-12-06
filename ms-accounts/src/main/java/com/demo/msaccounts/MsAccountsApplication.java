@@ -13,6 +13,8 @@ import org.springframework.web.reactive.config.EnableWebFlux;
 @EnableWebFlux
 public class MsAccountsApplication {
 
+
+
     @Bean
     ConnectionFactoryInitializer initializer(ConnectionFactory connectionFactory) {
 
