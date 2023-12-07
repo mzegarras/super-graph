@@ -1,6 +1,7 @@
 package com.example.mscustomersgraphql.component;
 
 
+import com.example.mscustomersgraphql.codegen.DgsConstants;
 import com.example.mscustomersgraphql.codegen.types.Customer;
 import com.example.mscustomersgraphql.codegen.types.DocumentTypeInput;
 import com.example.mscustomersgraphql.codegen.types.Phone;
@@ -31,8 +32,11 @@ public class CustomerDataResolver {
                 .block();
     }
 
-    @DgsQuery
-    public Customer findCustomers(@InputArgument("input") DocumentTypeInput input,
+    @DgsData(
+            parentType = DgsConstants.QUERY_TYPE,
+            field = DgsConstants.QUERY.FindCustomers
+    )
+    public Customer findCustomers(@InputArgument(DgsConstants.QUERY.FINDCUSTOMERS_INPUT_ARGUMENT.Input) DocumentTypeInput input,
                                   DataFetchingEnvironment dfe) {
 
         var uri = UriComponentsBuilder.fromUriString("/customers/search")
@@ -52,7 +56,7 @@ public class CustomerDataResolver {
 
     }
 
-    @DgsData(parentType = "Customer", field = "phones")
+    @DgsData(parentType = DgsConstants.CUSTOMER.TYPE_NAME, field = DgsConstants.CUSTOMER.Phones)
     public List<Phone> actors(DgsDataFetchingEnvironment dfe) {
 
         Customer customer = dfe.getSource();

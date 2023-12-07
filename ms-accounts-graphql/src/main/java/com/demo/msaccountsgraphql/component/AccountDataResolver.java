@@ -1,5 +1,6 @@
 package com.demo.msaccountsgraphql.component;
 
+import com.demo.msaccountsgraphql.codegen.DgsConstants;
 import com.demo.msaccountsgraphql.codegen.types.Account;
 import com.demo.msaccountsgraphql.codegen.types.Customer;
 import com.demo.msaccountsgraphql.codegen.types.Transaction;
@@ -22,7 +23,10 @@ public class AccountDataResolver {
         this.webClient = webClient;
     }
 
-    @DgsQuery
+    @DgsData(
+            parentType = DgsConstants.QUERY_TYPE,
+            field = DgsConstants.QUERY.FindAccountById
+    )
     public Account findAccountById(@InputArgument Integer id) {
 
         return webClient
@@ -35,17 +39,16 @@ public class AccountDataResolver {
     }
 
 
-    @DgsEntityFetcher(name = "Customer")
+    @DgsEntityFetcher(name = DgsConstants.CUSTOMER.TYPE_NAME)
     public Customer customer(Map<String, Object> values) {
         return new Customer((String) values.get("id"), null);
     }
 
-    @DgsData(parentType = "Customer", field = "accounts")
+    @DgsData(parentType = DgsConstants.CUSTOMER.TYPE_NAME, field =  DgsConstants.CUSTOMER.Accounts)
     public List<Account> getAccounts(DgsDataFetchingEnvironment dfe) {
 
-        log.info("customer - before");
+
         Customer customer = dfe.getSource();
-        log.trace("customer:" + customer.getId());
 
         var uri = UriComponentsBuilder.fromUriString("/accounts/search")
                 .queryParam("customerId", customer.getId())
@@ -60,7 +63,7 @@ public class AccountDataResolver {
                 .block();
     }
 
-    @DgsData(parentType = "Account", field = "transactions")
+    @DgsData(parentType = DgsConstants.ACCOUNT.TYPE_NAME, field = DgsConstants.ACCOUNT.Transactions)
     public List<Transaction> actors(DgsDataFetchingEnvironment dfe) {
 
         log.info("customer - before");

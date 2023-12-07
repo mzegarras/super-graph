@@ -38,5 +38,6 @@ type Transaction{
 }
 
 type Query{
+    "Buscar cuenta por ID"
     findAccountById(id:Int): Account
 }
