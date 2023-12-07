@@ -2,6 +2,11 @@ extend schema
 @link(url: "https://specs.apollo.dev/federation/v2.3",
     import: ["@key","@extends","@external"])
 
+scalar Date
+scalar NonNegativeInt
+scalar DateTime
+
+
 "Cuenta de cliente"
 type Account{
     "Id del cuenta"
@@ -26,10 +31,8 @@ type Customer @key(fields: "id") @extends {
 type Transaction{
     "Id del movimiento"
     id: ID,
-    "Fecha de transacción"
-    fecha: String!,
-    "Hora de transacción"
-    hora: String!,
+    "Fecha y hora de transacción"
+    fecha: DateTime!,
     "Monto del movimiento"
     amount: Float!,
 }

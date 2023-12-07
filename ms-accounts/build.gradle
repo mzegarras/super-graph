@@ -26,8 +26,7 @@ dependencies {
     //implementation 'com.fasterxml.jackson.module:jackson-module-kotlin'
 
     implementation 'org.springframework.boot:spring-boot-starter-json'
-    // https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-joda
-    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-joda:2.16.0'
+
 
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'com.h2database:h2'

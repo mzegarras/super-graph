@@ -46,5 +46,11 @@ generateJava {
     //schemaPaths = ["${projectDir}/src/main/resources/graphql"]
     packageName = 'com.demo.msaccountsgraphql.codegen'
     generateClient = false
+    typeMapping = [
+            "Date"              : "java.time.LocalDate",
+            "NonNegativeInt"    : "java.lang.Integer",
+            "Url"               : "java.net.URL",
+            "DateTime"          : "java.time.OffsetDateTime"
+    ]
 }
 
