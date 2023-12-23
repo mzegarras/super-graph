@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 
 @Service
@@ -19,8 +20,11 @@ public class CustomerService {
         return repository.findAll();
     }
 
-    public Optional<CustomerEntity> find(String documentType, String documentNumber) {
-
+    public Optional<CustomerEntity> findByDocument(String documentType, String documentNumber) {
         return repository.findByDocumentTypeAndDocumentNumber(documentType,documentNumber);
+    }
+
+    public Optional<CustomerEntity> findById(UUID id) {
+        return repository.findById(id);
     }
 }

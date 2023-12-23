@@ -18,9 +18,19 @@ public class CustomerEntity {
     private String lastName;
     private String address;
 
+    private String gender;
+    @CreationTimestamp
+    private LocalDateTime birthDate;
+
+
+
+
+
     private String documentType;
     private String documentNumber;
     private String email;
+
+    private String phone;
     @CreationTimestamp
     private LocalDateTime creationTimestamp;
 
@@ -86,5 +96,29 @@ public class CustomerEntity {
 
     public void setCreationTimestamp(LocalDateTime creationTimestamp) {
         this.creationTimestamp = creationTimestamp;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public LocalDateTime getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(LocalDateTime birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }
