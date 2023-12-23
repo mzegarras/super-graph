@@ -15,9 +15,9 @@ public class CustomerService {
 
     @Autowired
     private CustomerRepository repository;
-    public List<CustomerEntity> customersList() {
+    public List<CustomerEntity> findByKeyword( String firstName,String lastName) {
 
-        return repository.findAll();
+        return repository.findByKeyword(firstName,lastName);
     }
 
     public Optional<CustomerEntity> findByDocument(String documentType, String documentNumber) {

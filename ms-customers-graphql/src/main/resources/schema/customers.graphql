@@ -43,8 +43,7 @@ type Customer @key(fields: "id") {
 
 
 type Query{
-    #allCustomers: [Customer!]!
-    #findCustomers(input:DocumentTypeInput): Customer
+    customerSearch(filter:CustomerSearchFilter):[Customer!]
     customer(filter:CustomerFilter!):Customer
 }
 
@@ -52,4 +51,9 @@ input CustomerFilter {
     type: TypesDocument
     number: String
     id: ID
+}
+
+input CustomerSearchFilter {
+    firstName: String
+    lastName: String
 }
