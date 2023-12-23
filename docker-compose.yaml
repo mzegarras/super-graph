@@ -14,6 +14,7 @@ services:
     build:
       context: ./ms-customers
       dockerfile: ./src/main/docker/Dockerfile
+
     ports:
       - "9060:9060"
   accounts:
@@ -44,6 +45,9 @@ services:
       - "8080:8080"
     environment:
       - MSCUSTOMERS_URL=http://customers:9060/
+      - DB_URL=jdbc:postgresql://csonicdevdb01.postgres.database.azure.com:5432/customers_db?currentSchema=public
+      - DB_USER=csonicadmin
+      - DB_PASSWORD=QsMFQoqntBY__oy3hP_sFmr.Z
   risks-graphql:
     image: mzegarra/ms-risks-graphql-sg:1.0.1
     platform: linux/amd64
@@ -63,7 +67,7 @@ services:
     environment:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_USER=postgres
-      - POSTGRES_DB=customer_db
+      - POSTGRES_DB=customers_db
     volumes:
       - ./db/customers_create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
   pgadmin:
