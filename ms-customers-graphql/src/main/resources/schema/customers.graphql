@@ -2,25 +2,45 @@ extend schema
 @link(url: "https://specs.apollo.dev/federation/v2.0",
     import: ["@key"])
 
+scalar Url
+scalar Date
+scalar NonNegativeInt
+scalar DateTime
+
+
 type Phone{
     id: ID,
     phone: String!
 }
 
+enum TypesDocument {
+    DNI
+    PASSPORT
+}
+
+type DocumentType {
+    type: TypesDocument!,
+    number: String!
+}
+
 type Customer @key(fields: "id") {
-    id: ID,
-    name: String!,
+    id: ID!,
+    firstName: String!,
     lastName: String!
-    phones: [Phone!]
+    address: String!
+    document: DocumentType!
+    email: String!
+    createDateTime: DateTime!
 }
 
 
 type Query{
-    allCustomers: [Customer!]!
-    findCustomers(input:DocumentTypeInput): Customer
+    #allCustomers: [Customer!]!
+    #findCustomers(input:DocumentTypeInput): Customer
+    customer(filter:CustomerFilter!):Customer
 }
 
-input DocumentTypeInput {
-    type: String!,
-    number: String!
+input CustomerFilter {
+    type: TypesDocument
+    number: String
 }
