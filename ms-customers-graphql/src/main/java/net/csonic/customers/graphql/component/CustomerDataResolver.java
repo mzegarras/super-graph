@@ -8,7 +8,7 @@ import com.netflix.graphql.dgs.exceptions.DgsEntityNotFoundException;
 import net.csonic.customers.graphql.DgsConstants;
 import net.csonic.customers.graphql.GraphqlBeanMapper;
 import net.csonic.customers.graphql.datasource.entity.CustomerEntity;
-import net.csonic.customers.graphql.service.command.CustomerService;
+import net.csonic.customers.graphql.service.query.CustomerQueryService;
 import net.csonic.customers.graphql.types.Customer;
 import net.csonic.customers.graphql.types.CustomerFilter;
 import net.csonic.customers.graphql.types.CustomerSearchFilter;
@@ -16,7 +16,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -25,7 +24,7 @@ import java.util.stream.Collectors;
 public class CustomerDataResolver {
 
     @Autowired
-    private CustomerService queryService;
+    private CustomerQueryService queryService;
 
     @DgsData(parentType = DgsConstants.QUERY_TYPE, field = DgsConstants.QUERY.CustomerSearch)
     public List<Customer> customerSearch(@InputArgument(name = DgsConstants.QUERY.CUSTOMERSEARCH_INPUT_ARGUMENT.Filter) CustomerSearchFilter filter) {

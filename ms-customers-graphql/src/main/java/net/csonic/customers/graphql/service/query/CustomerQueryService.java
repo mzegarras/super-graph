@@ -1,4 +1,4 @@
-package net.csonic.customers.graphql.service.command;
+package net.csonic.customers.graphql.service.query;
 
 import net.csonic.customers.graphql.datasource.entity.CustomerEntity;
 import net.csonic.customers.graphql.datasource.repository.CustomerRepository;
@@ -11,7 +11,7 @@ import java.util.UUID;
 
 
 @Service
-public class CustomerService {
+public class CustomerQueryService {
 
     @Autowired
     private CustomerRepository repository;
