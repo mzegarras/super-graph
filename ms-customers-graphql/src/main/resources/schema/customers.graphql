@@ -11,6 +11,7 @@ scalar DateTime
 type Phone{
     id: ID,
     phone: String!
+    createDateTime: DateTime!
 }
 
 enum TypesDocument {
@@ -34,11 +35,11 @@ type Customer @key(fields: "id") {
     lastName: String!
     gender: TypesGender!,
     address: String!
-    phone: String!
     birthDate: DateTime!
     document: DocumentType!
     email: String!
     createDateTime: DateTime!
+    phones:[Phone!]
 }
 
 

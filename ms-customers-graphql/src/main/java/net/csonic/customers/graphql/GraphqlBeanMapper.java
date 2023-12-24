@@ -1,12 +1,11 @@
 package net.csonic.customers.graphql;
 
 import net.csonic.customers.graphql.datasource.entity.CustomerEntity;
-import net.csonic.customers.graphql.types.Customer;
-import net.csonic.customers.graphql.types.DocumentType;
-import net.csonic.customers.graphql.types.TypesDocument;
-import net.csonic.customers.graphql.types.TypesGender;
-import org.ocpsoft.prettytime.PrettyTime;
+import net.csonic.customers.graphql.datasource.entity.PhoneEntity;
+import net.csonic.customers.graphql.types.*;
 import org.apache.commons.lang3.StringUtils;
+import org.ocpsoft.prettytime.PrettyTime;
+
 import java.time.ZoneOffset;
 
 public class GraphqlBeanMapper {
@@ -15,8 +14,16 @@ public class GraphqlBeanMapper {
 
     private static final ZoneOffset ZONE_OFFSET = ZoneOffset.ofHours(5);
 
+    public static Phone mapToGraphql(PhoneEntity original) {
+        return Phone.newBuilder()
+                .id(original.getId().toString())
+                .phone(original.getPhone())
+                .createDateTime(original.getCreationTimestamp().atOffset(ZONE_OFFSET))
+                .build();
+    }
+
     public static Customer mapToGraphql(CustomerEntity original) {
-        var result = new Customer();
+
         var createDateTime = original.getCreationTimestamp().atOffset(ZONE_OFFSET);
         var birthDateTime = original.getBirthDate().atOffset(ZONE_OFFSET);
 
@@ -24,24 +31,25 @@ public class GraphqlBeanMapper {
                 original.getDocumentType(), TypesDocument.DNI.toString()) ?
                 TypesDocument.DNI : TypesDocument.PASSPORT;
 
-        result.setId(original.getId().toString());
-        result.setFirstName(original.getFirstName());
-        result.setLastName(original.getLastName());
-        result.setAddress(original.getAddress());
-        result.setPhone(original.getPhone());
-        result.setCreateDateTime(createDateTime);
-        result.setEmail(original.getEmail());
-        result.setBirthDate(birthDateTime);
-        result.setGender(TypesGender.valueOf(original.getGender()));
+        var phones = original.getPhones().stream()
+                .map(GraphqlBeanMapper::mapToGraphql)
+                .toList();
 
-        var document = new DocumentType();
-        document.setType(documentType);
-        document.setNumber(original.getDocumentNumber());
-        result.setDocument(document);
-
-
-
-        return result;
+        return Customer.newBuilder()
+                .id(original.getId().toString())
+                .firstName(original.getFirstName())
+                .lastName(original.getLastName())
+                .address(original.getAddress())
+                .createDateTime(createDateTime)
+                .email(original.getEmail())
+                .birthDate(birthDateTime)
+                .gender(TypesGender.valueOf(original.getGender()))
+                .phones(phones)
+                .document(DocumentType.newBuilder()
+                        .type(documentType)
+                        .number(original.getDocumentNumber())
+                        .build())
+                .build();
     }
 
 }

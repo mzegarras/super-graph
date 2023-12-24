@@ -1,11 +1,10 @@
 package net.csonic.customers.graphql.datasource.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -22,9 +21,18 @@ public class CustomerEntity {
     @CreationTimestamp
     private LocalDateTime birthDate;
 
+    @OneToMany(mappedBy = "customer")
+    @OrderBy("creationTimestamp desc")
+    private List<PhoneEntity> phones;
 
 
+    public List<PhoneEntity> getPhones() {
+        return phones;
+    }
 
+    public void setPhones(List<PhoneEntity> phones) {
+        this.phones = phones;
+    }
 
     private String documentType;
     private String documentNumber;
