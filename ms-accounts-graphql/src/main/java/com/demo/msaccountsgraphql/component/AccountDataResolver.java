@@ -2,6 +2,7 @@ package com.demo.msaccountsgraphql.component;
 
 import com.demo.msaccountsgraphql.codegen.DgsConstants;
 import com.demo.msaccountsgraphql.codegen.types.Account;
+import com.demo.msaccountsgraphql.codegen.types.AccountsByCustomerFilter;
 import com.demo.msaccountsgraphql.codegen.types.Customer;
 import com.demo.msaccountsgraphql.codegen.types.Transaction;
 import com.netflix.graphql.dgs.*;
@@ -25,10 +26,7 @@ public class AccountDataResolver {
         this.webClient = webClient;
     }
 
-    @DgsData(
-            parentType = DgsConstants.QUERY_TYPE,
-            field = DgsConstants.QUERY.FindAccountById
-    )
+    @DgsData(parentType = DgsConstants.QUERY_TYPE, field = DgsConstants.QUERY.Account)
     public Mono<Account> findAccountById(@InputArgument String id) {
 
         return webClient
@@ -36,8 +34,23 @@ public class AccountDataResolver {
                 .uri("/accounts/" + id)
                 .retrieve()
                 .bodyToMono(Account.class);
-                //.block();
 
+    }
+
+
+    @DgsData(parentType = DgsConstants.QUERY_TYPE, field = DgsConstants.QUERY.AccountsByCustomer)
+    public Flux<Account> getAccountsByCustomer(@InputArgument(name = DgsConstants.QUERY.ACCOUNTSBYCUSTOMER_INPUT_ARGUMENT.Filter) AccountsByCustomerFilter filter) {
+
+        var uri = UriComponentsBuilder.fromUriString("/accounts/search")
+                .queryParam("customerId", filter.getCustomerId())
+                .build().toUri();
+
+        return webClient
+                .get()
+                .uri(uri.toString())
+                .retrieve()
+                .bodyToFlux(Account.class)
+                .onErrorResume(Exception.class, e -> Flux.empty());
     }
 
 
@@ -46,7 +59,7 @@ public class AccountDataResolver {
         return new Customer((String) values.get("id"), null);
     }
 
-    @DgsData(parentType = DgsConstants.CUSTOMER.TYPE_NAME, field =  DgsConstants.CUSTOMER.Accounts)
+    @DgsData(parentType = DgsConstants.CUSTOMER.TYPE_NAME, field = DgsConstants.CUSTOMER.Accounts)
     public Flux<Account> getAccounts(DgsDataFetchingEnvironment dfe) {
 
 
@@ -62,11 +75,6 @@ public class AccountDataResolver {
                 .retrieve()
                 .bodyToFlux(Account.class)
                 .onErrorResume(Exception.class, e -> Flux.empty());
-
-                //.exchangeToMono(response -> response.bodyToMono(new ParameterizedTypeReference<List<Account>>() {
-                //}))
-
-                //.block();
     }
 
     @DgsData(parentType = DgsConstants.ACCOUNT.TYPE_NAME, field = DgsConstants.ACCOUNT.Transactions)

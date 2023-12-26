@@ -15,7 +15,8 @@ type Account{
     number: String!,
     "Saldo del cuenta"
     balance: Float!,
-
+    "Currency del cuenta"
+    currency: String!,
     "Movimientos de la cuenta"
     transactions:[Transaction!]
 }
@@ -39,5 +40,12 @@ type Transaction{
 
 type Query{
     "Buscar cuenta por ID"
-    findAccountById(id:ID): Account
+    account(id:ID): Account
+
+    "Buscar cuentas por customerId"
+    accountsByCustomer(filter:AccountsByCustomerFilter): [Account!]
+}
+
+input AccountsByCustomerFilter {
+    customerId: ID
 }

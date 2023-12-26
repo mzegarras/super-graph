@@ -10,13 +10,14 @@ spring:
     r2dbc:
       repositories:
         enabled: true
+
   r2dbc:
     url: ${DB_URL:r2dbc:postgresql://localhost:5432/customers_db?schema=accounts_schema}
     username: ${DB_USER:postgres}
     password: ${DB_PASSWORD:postgres}
     properties:
       schema: accounts_schema
-
+      sslMode: require
   jpa:
     hibernate:
       ddl-auto: none

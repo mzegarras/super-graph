@@ -18,15 +18,19 @@ services:
     ports:
       - "9060:9060"
   accounts:
-    image: mzegarra/ms-accounts-sg:1.0.3
+    image: mzegarra/ms-accounts-sg:1.0.7
     platform: linux/amd64
     build:
       context: ./ms-accounts
       dockerfile: ./src/main/docker/Dockerfile
+    environment:
+      - DB_URL=r2dbc:postgresql://csonicdevdb01.postgres.database.azure.com:5432/customers_db?schema=accounts_schema
+      - DB_USER=csonicadmin
+      - DB_PASSWORD=pwd
     ports:
       - "9061:9061"
   accounts-graphql:
-    image: mzegarra/ms-accounts-graphql-sg:1.0.11
+    image: mzegarra/ms-accounts-graphql-sg:1.0.12
     platform: linux/amd64
     build:
       context: ./ms-accounts-graphql
@@ -47,7 +51,7 @@ services:
       - MSCUSTOMERS_URL=http://customers:9060/
       - DB_URL=jdbc:postgresql://csonicdevdb01.postgres.database.azure.com:5432/customers_db?currentSchema=public
       - DB_USER=csonicadmin
-      - DB_PASSWORD=QsMFQoqntBY__oy3hP_sFmr.Z
+      - DB_PASSWORD=pwd
   risks-graphql:
     image: mzegarra/ms-risks-graphql-sg:1.0.1
     platform: linux/amd64
