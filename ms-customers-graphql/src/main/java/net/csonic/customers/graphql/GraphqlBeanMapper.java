@@ -31,9 +31,9 @@ public class GraphqlBeanMapper {
                 original.getDocumentType(), TypesDocument.DNI.toString()) ?
                 TypesDocument.DNI : TypesDocument.PASSPORT;
 
-        var phones = original.getPhones().stream()
+       /* var phones = original.getPhones().stream()
                 .map(GraphqlBeanMapper::mapToGraphql)
-                .toList();
+                .toList();*/
 
         return Customer.newBuilder()
                 .id(original.getId().toString())
@@ -44,7 +44,7 @@ public class GraphqlBeanMapper {
                 .email(original.getEmail())
                 .birthDate(birthDateTime)
                 .gender(TypesGender.valueOf(original.getGender()))
-                .phones(phones)
+                //.phones(phones)
                 .document(DocumentType.newBuilder()
                         .type(documentType)
                         .number(original.getDocumentNumber())

@@ -1,8 +1,9 @@
 package net.csonic.customers.graphql.service.query;
 
 import net.csonic.customers.graphql.datasource.entity.CustomerEntity;
+import net.csonic.customers.graphql.datasource.entity.PhoneEntity;
 import net.csonic.customers.graphql.datasource.repository.CustomerRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import net.csonic.customers.graphql.datasource.repository.PhoneRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,18 +14,29 @@ import java.util.UUID;
 @Service
 public class CustomerQueryService {
 
-    @Autowired
-    private CustomerRepository repository;
+    private final CustomerRepository customerRepository;
+    private final PhoneRepository phoneRepository;
+
+    public CustomerQueryService(CustomerRepository customerRepository, PhoneRepository phoneRepository) {
+        this.customerRepository = customerRepository;
+        this.phoneRepository = phoneRepository;
+    }
+
     public List<CustomerEntity> findByKeyword( String firstName,String lastName) {
 
-        return repository.findByKeyword(firstName,lastName);
+        return customerRepository.findByKeyword(firstName,lastName);
     }
 
     public Optional<CustomerEntity> findByDocument(String documentType, String documentNumber) {
-        return repository.findByDocumentTypeAndDocumentNumber(documentType,documentNumber);
+        return customerRepository.findByDocumentTypeAndDocumentNumber(documentType,documentNumber);
     }
 
     public Optional<CustomerEntity> findById(UUID id) {
-        return repository.findById(id);
+        return customerRepository.findById(id);
+    }
+
+    public List<PhoneEntity> findPhonesByCustomerId(String customerId){
+
+        return phoneRepository.findByCustomerId(UUID.fromString(customerId));
     }
 }

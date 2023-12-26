@@ -9,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.UriComponentsBuilder;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 import java.util.Map;
@@ -27,14 +29,14 @@ public class AccountDataResolver {
             parentType = DgsConstants.QUERY_TYPE,
             field = DgsConstants.QUERY.FindAccountById
     )
-    public Account findAccountById(@InputArgument Integer id) {
+    public Mono<Account> findAccountById(@InputArgument Integer id) {
 
         return webClient
                 .get()
                 .uri("/accounts/" + id)
                 .retrieve()
-                .bodyToMono(Account.class)
-                .block();
+                .bodyToMono(Account.class);
+                //.block();
 
     }
 
@@ -45,7 +47,7 @@ public class AccountDataResolver {
     }
 
     @DgsData(parentType = DgsConstants.CUSTOMER.TYPE_NAME, field =  DgsConstants.CUSTOMER.Accounts)
-    public List<Account> getAccounts(DgsDataFetchingEnvironment dfe) {
+    public Flux<Account> getAccounts(DgsDataFetchingEnvironment dfe) {
 
 
         Customer customer = dfe.getSource();
@@ -57,10 +59,14 @@ public class AccountDataResolver {
         return webClient
                 .get()
                 .uri(uri.toString())
-                .exchangeToMono(response -> response.bodyToMono(new ParameterizedTypeReference<List<Account>>() {
-                }))
+                .retrieve()
+                .bodyToFlux(Account.class)
+                .onErrorResume(Exception.class, e -> Flux.empty());
 
-                .block();
+                //.exchangeToMono(response -> response.bodyToMono(new ParameterizedTypeReference<List<Account>>() {
+                //}))
+
+                //.block();
     }
 
     @DgsData(parentType = DgsConstants.ACCOUNT.TYPE_NAME, field = DgsConstants.ACCOUNT.Transactions)

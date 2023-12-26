@@ -19,4 +19,5 @@ public interface CustomerRepository extends ListCrudRepository<CustomerEntity, U
     //
     @Query(nativeQuery = true, value = "select * from customers c " + "where (:first_name is null or  upper(first_name) like  '%' || upper(:first_name) || '%') " + "and (:last_name is null or upper(last_name) like  '%' || upper(:last_name) || '%')")
     List<CustomerEntity> findByKeyword(@Param("first_name") String firstName, @Param("last_name") String lastName);
+
 }

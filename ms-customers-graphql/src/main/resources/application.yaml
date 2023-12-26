@@ -17,7 +17,7 @@ spring:
   main:
     banner-mode: OFF
   datasource:
-    url: ${DB_URL:jdbc:postgresql://localhost:5432/customers_db?currentSchema=public}
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/customers_db?currentSchema=customers_schema}
     username: ${DB_USER:postgres}
     password: ${DB_PASSWORD:postgres}
   jpa:

@@ -21,7 +21,7 @@ public class CustomerEntity {
     @CreationTimestamp
     private LocalDateTime birthDate;
 
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(mappedBy = "customer",fetch = FetchType.LAZY)
     @OrderBy("creationTimestamp desc")
     private List<PhoneEntity> phones;
 

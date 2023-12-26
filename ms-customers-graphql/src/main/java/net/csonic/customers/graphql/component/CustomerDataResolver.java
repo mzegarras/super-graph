@@ -3,6 +3,7 @@ package net.csonic.customers.graphql.component;
 
 import com.netflix.graphql.dgs.DgsComponent;
 import com.netflix.graphql.dgs.DgsData;
+import com.netflix.graphql.dgs.DgsDataFetchingEnvironment;
 import com.netflix.graphql.dgs.InputArgument;
 import com.netflix.graphql.dgs.exceptions.DgsEntityNotFoundException;
 import net.csonic.customers.graphql.DgsConstants;
@@ -12,6 +13,7 @@ import net.csonic.customers.graphql.service.query.CustomerQueryService;
 import net.csonic.customers.graphql.types.Customer;
 import net.csonic.customers.graphql.types.CustomerFilter;
 import net.csonic.customers.graphql.types.CustomerSearchFilter;
+import net.csonic.customers.graphql.types.Phone;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -54,6 +56,17 @@ public class CustomerDataResolver {
         //return queryService.find(filter.getType().name(),filter.getNumber());
        /* return queryService.customersList().stream().map(GraphqlBeanMapper::mapToGraphql)
                 .collect(Collectors.toList());*/
+    }
+
+    @DgsData(parentType = DgsConstants.CUSTOMER.TYPE_NAME, field = DgsConstants.CUSTOMER.Phones)
+    public List<Phone> phones(DgsDataFetchingEnvironment dfe) {
+
+        Customer account = dfe.getSource();
+
+        var phones = queryService.findPhonesByCustomerId(account.getId());
+
+        return phones.stream().map(GraphqlBeanMapper::mapToGraphql)
+                .collect(Collectors.toList());
     }
 
 }
