@@ -18,7 +18,7 @@ services:
     ports:
       - "9060:9060"
   accounts:
-    image: mzegarra/ms-accounts-sg:1.0.7
+    image: mzegarra/ms-accounts-sg:1.0.8
     platform: linux/amd64
     build:
       context: ./ms-accounts
@@ -30,7 +30,7 @@ services:
     ports:
       - "9061:9061"
   accounts-graphql:
-    image: mzegarra/ms-accounts-graphql-sg:1.0.12
+    image: mzegarra/ms-accounts-graphql-sg:1.0.13
     platform: linux/amd64
     build:
       context: ./ms-accounts-graphql
