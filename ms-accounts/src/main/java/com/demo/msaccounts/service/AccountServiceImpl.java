@@ -1,12 +1,14 @@
 package com.demo.msaccounts.service;
 
+import com.demo.msaccounts.datasource.repository.AccountRepository;
+import com.demo.msaccounts.datasource.repository.TransactionRepository;
 import com.demo.msaccounts.model.Account;
 import com.demo.msaccounts.model.Transaction;
-import com.demo.msaccounts.repository.AccountRepository;
-import com.demo.msaccounts.repository.TransactionRepository;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.util.UUID;
 
 @Service
 public class AccountServiceImpl implements  AccountService {
@@ -19,17 +21,22 @@ public class AccountServiceImpl implements  AccountService {
     }
 
     @Override
-    public Flux<Account> findAllByCustomerId(Integer customerId) {
-        return this.accountRepository.findByCustomerId(customerId);
+    public Flux<Account> findAllByCustomerId(String customerId) {
+        return this.accountRepository.findByCustomerId(UUID.fromString(customerId))
+                .map(BeanMapper::mapToGraphql);
     }
 
     @Override
-    public Mono<Account> findById(Integer id) {
-        return this.accountRepository.findById(id);
+    public Mono<Account> findById(String id) {
+
+       return this.accountRepository.findById(UUID.fromString(id))
+                .map(BeanMapper::mapToGraphql);
+
     }
 
     @Override
-    public Flux<Transaction> findTransactionsByAccountId(Integer accountId) {
-        return this.transactionRepository.findByAccountId(accountId);
+    public Flux<Transaction> findTransactionsByAccountId(String accountId) {
+        return this.transactionRepository.findByAccountId(UUID.fromString(accountId))
+                .map(BeanMapper::mapToGraphql);
     }
 }

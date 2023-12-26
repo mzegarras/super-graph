@@ -25,12 +25,16 @@ dependencies {
     implementation 'org.ocpsoft.prettytime:prettytime:5.0.6.Final'
 
     runtimeOnly 'org.postgresql:postgresql'
+    implementation 'org.postgresql:r2dbc-postgresql:1.0.3.RELEASE'
+
 
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'io.projectreactor:reactor-test'
-    //implementation 'org.springframework.boot:spring-boot-starter-data-r2dbc'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    implementation 'org.springframework.boot:spring-boot-starter-data-r2dbc'
     //implementation 'com.fasterxml.jackson.module:jackson-module-kotlin'
 
     //implementation 'org.springframework.boot:spring-boot-starter-json'

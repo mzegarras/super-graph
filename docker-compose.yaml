@@ -69,7 +69,8 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_DB=customers_db
     volumes:
-      - ./db/customers_create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
+      #- ./db/customers_create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
+      - ./db/accounts_create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
   pgadmin:
     image: dpage/pgadmin4
     container_name: pgadmin_container

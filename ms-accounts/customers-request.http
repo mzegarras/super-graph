@@ -1,0 +1,6 @@
+
+###
+http://localhost:8080/accounts/search?customerId=2f1b862e-57df-417c-a98a-67ebc8ad3aae
+
+### transactions
+http://localhost:8080/accounts/82f1b952-f9ac-49a3-9ddb-998a7791df32/transactions

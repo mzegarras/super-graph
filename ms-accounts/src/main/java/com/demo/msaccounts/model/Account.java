@@ -1,21 +1,20 @@
 package com.demo.msaccounts.model;
 
 
+import lombok.Builder;
 import lombok.Data;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Column;
-import org.springframework.data.relational.core.mapping.Table;
+
+import java.time.OffsetDateTime;
+
 
 @Data
-@Table(name = "accounts")
+@Builder
 public class Account {
 
-    @Id
-    private int id;
+    private String id;
     private String number;
     private double balance;
-    private int currency;
-    @Column("customerId")
-    private int customerId;
-
+    private String currency;
+    private String customerId;
+    private OffsetDateTime createDateTime;
 }
