@@ -29,7 +29,7 @@ public class AccountDataResolver {
             parentType = DgsConstants.QUERY_TYPE,
             field = DgsConstants.QUERY.FindAccountById
     )
-    public Mono<Account> findAccountById(@InputArgument Integer id) {
+    public Mono<Account> findAccountById(@InputArgument String id) {
 
         return webClient
                 .get()
