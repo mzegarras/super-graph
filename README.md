@@ -3,33 +3,33 @@
     * https://current--super-bank.apollographos.net/graphql
    2. Querys
        * Buscar clientes por apellidos y nombres
-       ```
-       query {
-         customerSearch(filter: { lastName: "a" }) {
-           id
-           lastName
-           firstName
-           phones {
-             phone
-             createDateTime
+           ```
+           query {
+             customerSearch(filter: { lastName: "a" }) {
+               id
+               lastName
+               firstName
+               phones {
+                 phone
+                 createDateTime
+               }
+               accounts {
+                 id
+                 number
+                 balance
+               }
+               evaluation {
+                 moodys
+                 sbs
+               }
+             }
            }
-           accounts {
-             id
-             number
-             balance
-           }
-           evaluation {
-             moodys
-             sbs
-           }
-         }
-       }
-       ```
-       ```shell
-        curl --location 'https://current--super-bank.apollographos.net/graphql' \
-        --header 'Content-Type: application/json' \
-        --data '{"query":"{\n    customerSearch(filter: { lastName: \"a\" }) {\n        id\n        lastName\n        firstName\n        phones {\n            phone\n            createDateTime\n        }\n        accounts {\n            id\n            number\n            balance\n        }\n        evaluation {\n            moodys\n            sbs\n        }\n    }\n}\n","variables":{}}'
-        ```  
+           ```
+           ```shell
+            curl --location 'https://current--super-bank.apollographos.net/graphql' \
+            --header 'Content-Type: application/json' \
+            --data '{"query":"{\n    customerSearch(filter: { lastName: \"a\" }) {\n        id\n        lastName\n        firstName\n        phones {\n            phone\n            createDateTime\n        }\n        accounts {\n            id\n            number\n            balance\n        }\n        evaluation {\n            moodys\n            sbs\n        }\n    }\n}\n","variables":{}}'
+           ```  
 
       * Cliente por ID
            ```
