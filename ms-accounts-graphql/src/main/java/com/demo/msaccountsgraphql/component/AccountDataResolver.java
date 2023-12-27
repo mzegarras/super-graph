@@ -78,7 +78,7 @@ public class AccountDataResolver {
     }
 
     @DgsData(parentType = DgsConstants.ACCOUNT.TYPE_NAME, field = DgsConstants.ACCOUNT.Transactions)
-    public List<Transaction> actors(DgsDataFetchingEnvironment dfe) {
+    public Flux<Transaction> transactions(DgsDataFetchingEnvironment dfe) {
 
         log.info("customer - before");
         Account account = dfe.getSource();
@@ -86,9 +86,8 @@ public class AccountDataResolver {
         return webClient
                 .get()
                 .uri("/accounts/" + account.getId() + "/transactions")
-                .exchangeToMono(response -> response.bodyToMono(new ParameterizedTypeReference<List<Transaction>>() {
-                }))
-
-                .block();
+                .retrieve()
+                .bodyToFlux(Transaction.class)
+                .onErrorResume(Exception.class, e -> Flux.empty());
     }
 }

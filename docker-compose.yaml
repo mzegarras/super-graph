@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   risks:
-    image: mzegarra/ms-risks-sg:1.0.5
+    image: mzegarra/ms-risks-sg:1.0.6
     platform: linux/amd64
     build:
       context: ./ms-risk
