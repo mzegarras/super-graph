@@ -22,7 +22,7 @@ services:
     ports:
       - "9060:9060"
   accounts:
-    image: mzegarra/ms-accounts-sg:1.0.8
+    image: mzegarra/ms-accounts-sg:1.0.9
     platform: linux/amd64
     build:
       context: ./ms-accounts
