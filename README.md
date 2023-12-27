@@ -1,7 +1,7 @@
 # GraphQL - Mock Server
-0. Endpoint
+1.  Endpoint
     * https://current--super-bank.apollographos.net/graphql
-1. Querys
+2. Querys
     * Buscar clientes por apellidos y nombres
         ```
         query {
@@ -62,6 +62,5 @@
           }
         }
         ```
-2. Datos de clientes
-3. sas
-4. 
+3. Datos de clientes
+4. sas
