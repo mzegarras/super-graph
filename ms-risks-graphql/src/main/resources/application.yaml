@@ -3,6 +3,13 @@
 microservices.risks:
   url: ${MSRISKS_URL:http://localhost:9062/}
 
+grpc:
+  client:
+    local-grpc-server:
+      address: 'dev-ms-risks-sg.ashymoss-2e7613f7.eastus.azurecontainerapps.io'
+      enableKeepAlive: true
+      keepAliveWithoutCalls: true
+      negotiationType: plaintext
 
 dgs:
   graphql:

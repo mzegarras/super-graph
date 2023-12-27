@@ -6,10 +6,14 @@ extend schema
 type Evaluation {
     "Id de la evaluación"
     id: ID,
-    "Clasificación BCP"
-    calificacionBCP: String!,
+    "Id del cliente"
+    customerId: ID,
+    "Clasificación Moodys"
+    moodys: String!,
     "Clasificación SBS"
-    calificacionSBS: String!,
+    sbs: String!,
+    "Clasificación PCR"
+    pcr: String!
 }
 
 type Customer @key(fields: "id") @extends {
@@ -17,4 +21,8 @@ type Customer @key(fields: "id") @extends {
     id: ID @external,
     "Evaluación del cliente"
     evaluation: Evaluation!
+}
+
+type Query{
+    evaluation(customerID:ID!):Evaluation
 }

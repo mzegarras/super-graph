@@ -15,8 +15,12 @@ public class RiskServiceController extends RiskServiceGrpc.RiskServiceImplBase {
     @Autowired
     private RiskService riskService;
 
+
+
     @Override
     public void getEvaluation(EvaluationRequest request, StreamObserver<EvaluationResponse> responseObserver) {
+
+
 
 
         var result = riskService.findByCustomerId(request.getCustomerId());

@@ -1,9 +1,4 @@
 
-```
-service:super-bank:1kW4k9OmDlqrZcV1LnR8hg
-
-```
-
 ````
   super-graphql:
     image: ghcr.io/apollographql/router:v1.32.0
@@ -16,7 +11,7 @@ service:super-bank:1kW4k9OmDlqrZcV1LnR8hg
 ````
 
 ```
-export APOLLO_KEY='service:super-bank:1kW4k9OmDlqrZcV1LnR8hg'
+export APOLLO_KEY=''
 rover subgraph publish super-bank@current --name customers-subgraphs --schema ./ms-customers-graphql/src/main/resources/schema/customers.graphql  \
   --routing-url https://dev-ms-customers-graphql-sg.azurewebsites.net/graphql
   

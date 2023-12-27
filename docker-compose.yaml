@@ -57,7 +57,7 @@ services:
       - DB_USER=csonicadmin
       - DB_PASSWORD=pwd
   risks-graphql:
-    image: mzegarra/ms-risks-graphql-sg:1.0.1
+    image: mzegarra/ms-risks-graphql-sg:1.0.2
     platform: linux/amd64
     build:
       context: ./ms-risks-graphql
