@@ -1,6 +1,6 @@
 package com.demo.msrisk.controller;
 
-
+/*
 import com.demo.msrisk.model.Evaluation;
 import com.demo.msrisk.service.RiskService;
 import org.springframework.http.HttpStatus;
@@ -23,3 +23,4 @@ public class EvaluationController {
         return this.riskService.findAllByCustomerId(customerId);
     }
 }
+*/

@@ -1,5 +1,11 @@
 FROM openjdk:22-ea-17-jdk-slim-bullseye
 
+
+ENV DB_URL=""
+ENV DB_USER=""
+ENV DB_PASSWORD=""
+EXPOSE 8585
+
 VOLUME /tmp
 RUN export DEBIAN_FRONTEND=noninteractive \
     && apt-get update \

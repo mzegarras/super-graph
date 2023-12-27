@@ -1,9 +1,11 @@
 package com.demo.msrisk.service;
 
+
+import com.demo.msrisk.datasource.repository.RiskRepository;
 import com.demo.msrisk.model.Evaluation;
-import com.demo.msrisk.repository.RiskRepository;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Mono;
+
+import java.util.UUID;
 
 @Service
 public class RiskServiceImpl implements RiskService {
@@ -14,7 +16,21 @@ public class RiskServiceImpl implements RiskService {
     }
 
     @Override
-    public Mono<Evaluation> findAllByCustomerId(Integer customerId) {
-        return riskRepository.findById(customerId);
+    public Evaluation findByCustomerId(String customerId) {
+        Evaluation.EvaluationBuilder builder = Evaluation.builder();
+
+
+        riskRepository.findByCustomerId( UUID.fromString(customerId) )
+                .ifPresent(entity->
+                        builder
+                        .id(entity.getId().toString())
+                        .customerId(entity.getCustomerId().toString())
+                                .calificacionMoodys(entity.getCalificacionMoodys())
+                                .calificacionPCR(entity.getCalificacionPcr())
+                                .calificacionSBS(entity.getCalificacionPcr())
+                );
+
+        return builder.build();
     }
+
 }

@@ -1,23 +1,18 @@
 package com.demo.msrisk.model;
 
 
+import lombok.Builder;
 import lombok.Data;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Column;
-import org.springframework.data.relational.core.mapping.Table;
+
 
 @Data
-@Table(name = "evaluations")
+@Builder
 public class Evaluation {
 
-    @Id
-    private int id;
-    @Column("calificacionBCP")
-    private String calificacionBCP;
-
-    @Column("calificacionSBS")
+    private String id;
+    private String customerId;
+    private String calificacionMoodys;
     private String calificacionSBS;
+    private String calificacionPCR;
 
-    @Column("customerId")
-    private int customerId;
 }

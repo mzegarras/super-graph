@@ -1,13 +1,17 @@
 version: '3.8'
 services:
   risks:
-    image: mzegarra/ms-risks-sg:1.0.0
+    image: mzegarra/ms-risks-sg:1.0.5
     platform: linux/amd64
     build:
       context: ./ms-risk
       dockerfile: ./src/main/docker/Dockerfile
+    environment:
+      - DB_URL=jdbc:postgresql://csonicdevdb01.postgres.database.azure.com:5432/customers_db?currentSchema=risk_schema
+      - DB_USER=csonicadmin
+      - DB_PASSWORD=pwd
     ports:
-      - "9062:9062"
+      - "9062:8585"
   customers:
     image: mzegarra/ms-customers-sg:1.0.2
     platform: linux/amd64
@@ -74,7 +78,8 @@ services:
       - POSTGRES_DB=customers_db
     volumes:
       #- ./db/customers_create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
-      - ./db/accounts_create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
+      #- ./db/accounts_create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
+      - ./db/risks_create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
   pgadmin:
     image: dpage/pgadmin4
     container_name: pgadmin_container
