@@ -1,4 +1,5 @@
 # GraphQL - Mock Server
+![Architecture](./assets/images/1_architecture.png)
 1.  Endpoint
     * https://current--super-bank.apollographos.net/graphql
    2. Querys
