@@ -15,11 +15,17 @@ import net.csonic.customers.graphql.types.CustomerFilter;
 import net.csonic.customers.graphql.types.CustomerSearchFilter;
 import net.csonic.customers.graphql.types.Phone;
 import org.apache.commons.lang3.StringUtils;
+import org.dataloader.DataLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
+
+import org.dataloader.DataLoader;
+import java.util.concurrent.CompletableFuture;
+import net.csonic.customers.graphql.dataloaders.PhonesDataLoader;
 
 
 @DgsComponent
@@ -58,6 +64,7 @@ public class CustomerDataResolver {
                 .collect(Collectors.toList());*/
     }
 
+    /*
     @DgsData(parentType = DgsConstants.CUSTOMER.TYPE_NAME, field = DgsConstants.CUSTOMER.Phones)
     public List<Phone> phones(DgsDataFetchingEnvironment dfe) {
 
@@ -68,5 +75,14 @@ public class CustomerDataResolver {
         return phones.stream().map(GraphqlBeanMapper::mapToGraphql)
                 .collect(Collectors.toList());
     }
+    */
 
+    // Resolver with dataloader
+    @DgsData(parentType = DgsConstants.CUSTOMER.TYPE_NAME, field = DgsConstants.CUSTOMER.Phones)
+    public CompletableFuture<List<Phone>> phones(DgsDataFetchingEnvironment dfe){
+        DataLoader<UUID, List<Phone>> phonesDataloader = dfe.getDataLoader(PhonesDataLoader.class);
+        Customer customer = dfe.getSource();
+        return phonesDataloader.load(UUID.fromString(customer.getId()));
+    }
+    
 }
