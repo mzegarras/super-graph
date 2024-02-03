@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
+
+import java.util.Map;
 
 
 @Service
@@ -35,8 +38,13 @@ public class CustomerQueryService {
         return customerRepository.findById(id);
     }
 
+    /*
     public List<PhoneEntity> findPhonesByCustomerId(String customerId){
-
         return phoneRepository.findByCustomerId(UUID.fromString(customerId));
+    }
+    */
+
+    public Map<UUID, List<PhoneEntity>> findPhonesCustomer(List<UUID> customerId){
+        return phoneRepository.findPhoneAll(customerId).stream().collect(Collectors.groupingBy(p -> p.getCustomer().getId()));
     }
 }
