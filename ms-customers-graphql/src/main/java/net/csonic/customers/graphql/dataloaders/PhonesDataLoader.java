@@ -1,4 +1,4 @@
-package net.csonic.customers.dataloaders;
+package net.csonic.customers.graphql.dataloaders;
 
 import java.util.ArrayList;
 import java.util.List;
