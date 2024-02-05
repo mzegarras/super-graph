@@ -7,6 +7,8 @@ import java.util.UUID;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
+
+import net.csonic.customers.graphql.DgsConstants;
 import org.dataloader.BatchLoaderEnvironment;
 import org.dataloader.MappedBatchLoaderWithContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +16,7 @@ import com.netflix.graphql.dgs.DgsDataLoader;
 import net.csonic.customers.graphql.datasource.entity.PhoneEntity;
 import net.csonic.customers.graphql.service.query.CustomerQueryService;
 
-@DgsDataLoader(name = "phones")
+@DgsDataLoader(name = DgsConstants.PHONE.TYPE_NAME)
 public class PhonesDataLoader implements MappedBatchLoaderWithContext<UUID, List<PhoneEntity>> {
     
     @Autowired
