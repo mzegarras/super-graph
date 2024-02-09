@@ -44,7 +44,7 @@ services:
     environment:
       - MSACCOUNTS_URL=http://accounts:9061/
   customers-graphql:
-    image: mzegarra/ms-customers-graphql-sg:1.0.7
+    image: mzegarra/ms-customers-graphql-sg:1.0.13
     platform: linux/amd64
     build:
       context: ./ms-customers-graphql
@@ -91,3 +91,12 @@ services:
       PGADMIN_DEFAULT_PASSWORD: strong-password
     volumes:
       - ./data:/var/lib/pgadmin
+  gatling_graphql:
+    image: mzegarra/docker-qa-stress:latest
+    command: [-s, csonic.customers.Customer3]
+    volumes:
+      - ./load-test/gatling/results:/opt/gatling/results
+      - ./load-test/gatling/user-files:/opt/gatling/user-files
+    environment:
+      - ENABLE_DOCKER=true
+      - ENABLE_REPLY=false
