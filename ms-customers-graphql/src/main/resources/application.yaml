@@ -17,11 +17,16 @@ spring:
   main:
     banner-mode: OFF
   datasource:
-    url: ${DB_URL:jdbc:postgresql://localhost:5432/customers_db?currentSchema=customers_schema}
-    username: ${DB_USER:postgres}
-    password: ${DB_PASSWORD:postgres}
+    #url: ${DB_URL:jdbc:mysql://svc-6c30b476-90da-4548-937b-57846a82fab7-dml.azr-virginia1-2.svc.singlestore.com:3306/dbCustomers}
+    url: ${DB_URL:jdbc:singlestore://svc-6c30b476-90da-4548-937b-57846a82fab7-dml.azr-virginia1-2.svc.singlestore.com:3306/dbCustomers?pool=true&maxPoolSize=10}
+    username: ${DB_USER:user}
+    password: ${DB_PASSWORD:pwd}
+    driver-class-name: com.singlestore.jdbc.Driver
   jpa:
     hibernate:
-      ddl-auto: none
-    show-sql: true
+        ddl-auto: none
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
 
