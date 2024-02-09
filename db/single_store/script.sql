@@ -62,3 +62,22 @@ drop table customers;
 
 USE information_schema;
 select column_name,column_type,is_sparse from columns where table_name='customers'
+---LAB
+
+CREATE DATABASE IF NOT EXISTS db_training;
+use db_training;
+
+CREATE TABLE REGION(
+    regionId INT primary key ,
+    salesCity nvarchar(50),
+    salesStateProvice nvarchar(50),
+    salesRegion nvarchar(50),
+    salesCountry nvarchar(50),
+    salesDistricId int,
+    sort key(salesDistricId)
+)
+
+SHOW TABLES EXTENDED;
+
+SHOW COLUMNS IN REGION;
+SHOW INDEX IN REGION;

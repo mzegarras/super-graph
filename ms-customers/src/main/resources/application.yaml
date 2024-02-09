@@ -1,5 +1,11 @@
 
 
-spring.r2dbc.url: r2dbc:h2:file:///./testdb1
-server:
-  port: 9060
+
+server.port: 9060
+#"jdbc:singlestore://localhost:3306/test?user=root&password=myPassword"
+spring.r2dbc:
+    url: r2dbc:singlestore://localhost:3306/testdb_spring
+    username: admin
+    password: vHxCqWuWqIAYAxF04c7GSz2jOZP4zCnp
+
+#

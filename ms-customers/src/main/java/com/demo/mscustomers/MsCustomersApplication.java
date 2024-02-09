@@ -13,7 +13,7 @@ import org.springframework.web.reactive.config.EnableWebFlux;
 @EnableWebFlux
 public class MsCustomersApplication {
 
-    @Bean
+    /*@Bean
     ConnectionFactoryInitializer initializer(ConnectionFactory connectionFactory) {
 
         ConnectionFactoryInitializer initializer = new ConnectionFactoryInitializer();
@@ -21,7 +21,7 @@ public class MsCustomersApplication {
         initializer.setDatabasePopulator(new ResourceDatabasePopulator(new ClassPathResource("schema.sql")));
 
         return initializer;
-    }
+    }*/
 
 
     public static void main(String[] args) {
