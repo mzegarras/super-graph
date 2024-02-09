@@ -12,7 +12,7 @@ import java.util.UUID;
 public class CustomerEntity {
 
     @Id
-    private UUID id;
+    private String id;
     private String firstName;
     private String lastName;
     private String address;
@@ -42,11 +42,11 @@ public class CustomerEntity {
     @CreationTimestamp
     private LocalDateTime creationTimestamp;
 
-    public UUID getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(String id) {
         this.id = id;
     }
 

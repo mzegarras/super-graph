@@ -80,9 +80,9 @@ public class CustomerDataResolver {
     // Resolver with dataloader
     @DgsData(parentType = DgsConstants.CUSTOMER.TYPE_NAME, field = DgsConstants.CUSTOMER.Phones)
     public CompletableFuture<List<Phone>> phones(DgsDataFetchingEnvironment dfe){
-        DataLoader<UUID, List<Phone>> phonesDataloader = dfe.getDataLoader(PhonesDataLoader.class);
+        DataLoader<String, List<Phone>> phonesDataloader = dfe.getDataLoader(PhonesDataLoader.class);
         Customer customer = dfe.getSource();
-        return phonesDataloader.load(UUID.fromString(customer.getId()));
+        return phonesDataloader.load(customer.getId());
     }
     
 }

@@ -12,10 +12,10 @@ import java.util.List;
 import java.util.UUID;
 
 @Repository
-public interface PhoneRepository extends ListCrudRepository<PhoneEntity, UUID> {
+public interface PhoneRepository extends ListCrudRepository<PhoneEntity, String> {
 
     //List<PhoneEntity> findByCustomerId(UUID customerId);
 
     @Query(nativeQuery = true, value = "select * from customers_phones cp " + "where cp.customer_id IN :lstCustomerId")
-    List<PhoneEntity> findPhoneAll(@Param("lstCustomerId") List<UUID> lstCustomerId);
+    List<PhoneEntity> findPhoneAll(@Param("lstCustomerId") List<String> lstCustomerId);
 }

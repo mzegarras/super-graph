@@ -44,7 +44,7 @@ public class CustomerQueryService {
     }
     */
 
-    public Map<UUID, List<PhoneEntity>> findPhonesCustomer(List<UUID> customerId){
+    public Map<String, List<PhoneEntity>> findPhonesCustomer(List<String> customerId){
         return phoneRepository.findPhoneAll(customerId).stream().collect(Collectors.groupingBy(p -> p.getCustomer().getId()));
     }
 }

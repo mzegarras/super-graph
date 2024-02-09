@@ -17,13 +17,13 @@ import net.csonic.customers.graphql.datasource.entity.PhoneEntity;
 import net.csonic.customers.graphql.service.query.CustomerQueryService;
 
 @DgsDataLoader(name = DgsConstants.PHONE.TYPE_NAME)
-public class PhonesDataLoader implements MappedBatchLoaderWithContext<UUID, List<PhoneEntity>> {
+public class PhonesDataLoader implements MappedBatchLoaderWithContext<String, List<PhoneEntity>> {
     
     @Autowired
     private CustomerQueryService queryService;
 
     @Override
-    public CompletionStage<Map<UUID,List<PhoneEntity>>> load(Set<UUID> keys, BatchLoaderEnvironment environment){
+    public CompletionStage<Map<String,List<PhoneEntity>>> load(Set<String> keys, BatchLoaderEnvironment environment){
         var phones = queryService.findPhonesCustomer(new ArrayList<>(keys));
         return CompletableFuture.supplyAsync(() -> phones);
     }

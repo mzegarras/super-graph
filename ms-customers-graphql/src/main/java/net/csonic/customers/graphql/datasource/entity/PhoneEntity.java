@@ -11,7 +11,7 @@ import java.util.UUID;
 public class PhoneEntity {
 
     @Id
-    private UUID id;
+    private String id;
 
     @CreationTimestamp
     private LocalDateTime creationTimestamp;
@@ -22,11 +22,11 @@ public class PhoneEntity {
     @JoinColumn(name = "customer_id", nullable = false)
     private CustomerEntity customer;
 
-    public UUID getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(String id) {
         this.id = id;
     }
 
