@@ -25,6 +25,7 @@ public class PhonesDataLoader implements MappedBatchLoaderWithContext<String, Li
     @Override
     public CompletionStage<Map<String,List<PhoneEntity>>> load(Set<String> keys, BatchLoaderEnvironment environment){
         var phones = queryService.findPhonesCustomer(new ArrayList<>(keys));
+
         return CompletableFuture.supplyAsync(() -> phones);
     }
 

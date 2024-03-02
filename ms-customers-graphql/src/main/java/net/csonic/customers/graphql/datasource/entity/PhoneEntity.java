@@ -1,26 +1,36 @@
 package net.csonic.customers.graphql.datasource.entity;
 
 
-import jakarta.persistence.*;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
-@Entity
-@Table(name = "customers_phones")
+
+//@Entity
+//@Table(name = "customers_phones")
 public class PhoneEntity {
 
-    @Id
     private String id;
 
     @CreationTimestamp
     private LocalDateTime creationTimestamp;
 
     private String phone;
+    private String customerId;
+
+    public String getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
+    }
 
     @ManyToOne
-    @JoinColumn(name = "customer_id", nullable = false)
+    //@JoinColumn(name = "customer_id", nullable = false)
     private CustomerEntity customer;
+
 
     public String getId() {
         return id;

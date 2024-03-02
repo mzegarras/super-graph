@@ -1,0 +1,10 @@
+{
+  "sampling": {
+    "percentage": 100
+  },
+  "preview" : {
+    "profiler" : {
+      "enabled" : false
+    }
+  }
+}

@@ -11,10 +11,10 @@ import java.time.format.DateTimeFormatter
 
 class Customer3 extends Simulation {
 
-    val csvData = csv("data/customersdata.csv").circular
+    val csvData = csv("data/customers_idc.csv").circular
 
     val httpConf01 =
-      http.baseUrl("https://dev-ms-customers-graphql-sg.azurewebsites.net")
+      http.baseUrl("https://dev-dgs-customers.azurewebsites.net")
 
     val theCommonHeaders = Map(
         "accept" -> "application/json",
@@ -27,7 +27,7 @@ class Customer3 extends Simulation {
       http("account-gql")
         .post("/graphql")
         .headers(theCommonHeaders)
-        .body(ElFileBody("templates/customer_get.json")).asJson
+        .body(ElFileBody("templates/customer_idc.json")).asJson
         .check(status is 200)
     ).pause(0)
 
@@ -37,7 +37,7 @@ class Customer3 extends Simulation {
     setUp(
         //scn_customer_gql.inject(constantUsersPerSec(120).during (60.seconds)).protocols(httpConf01)
 
-          scn_customer_gql.inject(constantUsersPerSec(180).during (60.seconds)).protocols(httpConf01)
+          scn_customer_gql.inject(constantUsersPerSec(200).during (60.seconds)).protocols(httpConf01)
         //scn_customer_gql.inject(constantUsersPerSec(200).during (40.seconds)).protocols(httpConf01)
         //scn_customer_gql.inject(rampUsersPerSec(50).to(100).during(90.seconds)).protocols(httpConf01)
         //scn_customer_gql.inject(rampUsersPerSec(50).to(100).during(90.seconds)).protocols(httpConf01)

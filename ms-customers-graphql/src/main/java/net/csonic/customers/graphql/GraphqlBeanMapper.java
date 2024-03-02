@@ -31,9 +31,6 @@ public class GraphqlBeanMapper {
                 original.getDocumentType(), TypesDocument.DNI.toString()) ?
                 TypesDocument.DNI : TypesDocument.PASSPORT;
 
-       /* var phones = original.getPhones().stream()
-                .map(GraphqlBeanMapper::mapToGraphql)
-                .toList();*/
 
         return Customer.newBuilder()
                 .id(original.getId().toString())
@@ -52,4 +49,6 @@ public class GraphqlBeanMapper {
                 .build();
     }
 
+
+    //RelationEntity
 }

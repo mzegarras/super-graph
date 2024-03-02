@@ -5,6 +5,7 @@ microservices.customers:
 
 dgs:
   graphql:
+    virtualthreads.enabled: true
     schema-location:
       - "classpath*:schema/**/*.graphql*"
       - "classpath*:schema/**/*.gql"
@@ -12,8 +13,12 @@ dgs:
 logging:
   pattern:
     console: "%clr(%d{HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:%5p}) %clr(---){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:%wEx}"
+  level.org.springframework.jdbc.core: ERROR
+
+
 
 spring:
+  threads.virtual.enabled: true
   main:
     banner-mode: OFF
   datasource:
@@ -35,3 +40,46 @@ spring:
         dialect: org.hibernate.dialect.MySQLDialect
 
 
+
+management:
+  endpoints.web.exposure.include: '*'
+  metrics:
+    dgs-graphql:
+      enabled: true
+      instrumentation:
+        enabled: true
+      data-loader-instrumentation:
+        enabled: true
+
+      tag-customizers:
+        outcome:
+          enabled: true
+
+      query-signature:
+        enabled: true
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: "*"
+#  metrics:
+#    dgs-graphql:
+#      enabled: true
+#      instrumentation:
+#        enabled: true
+#      data-loader-instrumentation:
+#        enabled: true
+#      tag-customizers:
+#        outcome:
+#          enabled: true
+#      query-signature:
+#        enabled: true
+#        caching:
+#          enabled: true
+#      tags:
+#        limiter:
+#          limit: 100
+#      autotime:
+#        enabled: false
+#        percentiles: 1
+#        percentiles-histogram: false

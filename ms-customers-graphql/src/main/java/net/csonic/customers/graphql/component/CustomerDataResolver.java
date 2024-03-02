@@ -8,6 +8,7 @@ import com.netflix.graphql.dgs.InputArgument;
 import com.netflix.graphql.dgs.exceptions.DgsEntityNotFoundException;
 import net.csonic.customers.graphql.DgsConstants;
 import net.csonic.customers.graphql.GraphqlBeanMapper;
+import net.csonic.customers.graphql.dataloaders.RelationsDataLoader;
 import net.csonic.customers.graphql.datasource.entity.CustomerEntity;
 import net.csonic.customers.graphql.service.query.CustomerQueryService;
 import net.csonic.customers.graphql.types.Customer;
@@ -18,6 +19,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.dataloader.DataLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
@@ -48,7 +50,7 @@ public class CustomerDataResolver {
         var isFindById = !StringUtils.isEmpty(filter.getId());
         CustomerEntity customerEntity = null;
         if(isFindById){
-            var customerId = UUID.fromString(filter.getId());
+            var customerId = filter.getId();
             customerEntity = queryService.findById(customerId)
                     .orElseThrow(DgsEntityNotFoundException::new);
         }else{
@@ -84,5 +86,11 @@ public class CustomerDataResolver {
         Customer customer = dfe.getSource();
         return phonesDataloader.load(customer.getId());
     }
-    
+
+    @DgsData(parentType = DgsConstants.CUSTOMER.TYPE_NAME, field = DgsConstants.CUSTOMER.Relations)
+    public CompletableFuture<List<Customer>> reference(DgsDataFetchingEnvironment dfe){
+        DataLoader<String, List<Customer>> phonesDataloader = dfe.getDataLoader(RelationsDataLoader.class);
+        Customer customer = dfe.getSource();
+        return phonesDataloader.load(customer.getId());
+    }
 }

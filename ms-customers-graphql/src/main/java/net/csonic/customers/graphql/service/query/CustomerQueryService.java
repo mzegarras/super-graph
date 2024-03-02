@@ -1,50 +1,54 @@
 package net.csonic.customers.graphql.service.query;
 
+import net.csonic.customers.graphql.datasource.dao.CustomerDao;
 import net.csonic.customers.graphql.datasource.entity.CustomerEntity;
 import net.csonic.customers.graphql.datasource.entity.PhoneEntity;
-import net.csonic.customers.graphql.datasource.repository.CustomerRepository;
-import net.csonic.customers.graphql.datasource.repository.PhoneRepository;
+import net.csonic.customers.graphql.datasource.entity.RelationEntity;
+//import net.csonic.customers.graphql.datasource.repository.PhoneRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
-
-import java.util.Map;
 
 
 @Service
 public class CustomerQueryService {
 
-    private final CustomerRepository customerRepository;
-    private final PhoneRepository phoneRepository;
+    private final CustomerDao customerDao;
 
-    public CustomerQueryService(CustomerRepository customerRepository, PhoneRepository phoneRepository) {
-        this.customerRepository = customerRepository;
-        this.phoneRepository = phoneRepository;
+    public CustomerQueryService(CustomerDao customerDao) {
+        this.customerDao = customerDao;
     }
 
     public List<CustomerEntity> findByKeyword( String firstName,String lastName) {
 
-        return customerRepository.findByKeyword(firstName,lastName);
+        return customerDao.findByKeyword(firstName,lastName);
     }
 
     public Optional<CustomerEntity> findByDocument(String documentType, String documentNumber) {
-        return customerRepository.findByDocumentTypeAndDocumentNumber(documentType,documentNumber);
+        return customerDao.findByDocumentTypeAndDocumentNumber(documentType,documentNumber);
     }
 
-    public Optional<CustomerEntity> findById(UUID id) {
-        return customerRepository.findById(id);
+    public Optional<CustomerEntity> findById(String id) {
+        return Optional.of(customerDao.findCustomerById(id));
     }
 
-    /*
-    public List<PhoneEntity> findPhonesByCustomerId(String customerId){
-        return phoneRepository.findByCustomerId(UUID.fromString(customerId));
-    }
-    */
+
 
     public Map<String, List<PhoneEntity>> findPhonesCustomer(List<String> customerId){
-        return phoneRepository.findPhoneAll(customerId).stream().collect(Collectors.groupingBy(p -> p.getCustomer().getId()));
+
+
+    //customerDao.findPhoneAll()
+
+        return customerDao.findPhoneAll(customerId)
+                .stream()
+                .collect( Collectors.groupingBy(PhoneEntity::getCustomerId));
+    }
+
+    public Map<String, List<RelationEntity>> findRelationsCustomer(List<String> customerId){
+
+        return customerDao.findRelationsAll(customerId)
+                .stream()
+                .collect( Collectors.groupingBy(RelationEntity::getParentId));
     }
 }

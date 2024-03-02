@@ -19,6 +19,9 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
 
@@ -26,9 +29,11 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
 
 
-    implementation (platform("com.netflix.graphql.dgs:graphql-dgs-platform-dependencies:8.1.1"))
+    implementation (platform("com.netflix.graphql.dgs:graphql-dgs-platform-dependencies:8.4.0"))
     implementation 'com.netflix.graphql.dgs:graphql-dgs-spring-boot-starter'
     implementation 'com.netflix.graphql.dgs:graphql-dgs-extended-scalars'
+    //https://tinnakorn.cs.rmu.ac.th/Courses/Tutorial/Java.Spring.Modern.API.Development.with.Spring.6.and.Spring.Boot.3.2nd.Edition/OEBPS/B19349_14.xhtml
+    implementation group: 'com.netflix.graphql.dgs', name: 'graphql-dgs-spring-boot-micrometer'
 
 
     implementation 'net.datafaker:datafaker:2.0.2'
@@ -40,6 +45,12 @@ dependencies {
 
     // https://mvnrepository.com/artifact/com.singlestore/singlestore-jdbc-client
     implementation group: 'com.singlestore', name: 'singlestore-jdbc-client', version: '1.2.1'
+
+
+    // https://mvnrepository.com/artifact/com.microsoft.azure/applicationinsights-core
+    implementation group: 'com.microsoft.azure', name: 'applicationinsights-core', version: '3.5.0'
+
+
 
 
 }

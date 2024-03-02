@@ -1,0 +1,10 @@
+{
+  "simulation": "csonic.customers.Customer4",
+  "simulationId": "customer4",
+  "start": 1709308335713,
+  "description": "",
+  "scenarios": ["customer-gql"],
+  "assertions": [
+
+  ]
+}

@@ -1,38 +1,24 @@
 package net.csonic.customers.graphql.datasource.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Id;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.UUID;
 
-@Entity
-@Table(name = "customers")
+
 public class CustomerEntity {
 
-    @Id
+
     private String id;
     private String firstName;
     private String lastName;
     private String address;
 
+
     private String gender;
     @CreationTimestamp
     private LocalDateTime birthDate;
 
-    @OneToMany(mappedBy = "customer",fetch = FetchType.LAZY)
-    @OrderBy("creationTimestamp desc")
-    private List<PhoneEntity> phones;
-
-
-    public List<PhoneEntity> getPhones() {
-        return phones;
-    }
-
-    public void setPhones(List<PhoneEntity> phones) {
-        this.phones = phones;
-    }
 
     private String documentType;
     private String documentNumber;

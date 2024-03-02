@@ -34,7 +34,7 @@ services:
     ports:
       - "9061:9061"
   accounts-graphql:
-    image: mzegarra/ms-accounts-graphql-sg:1.0.13
+    image: mzegarra/ms-accounts-graphql-sg:1.0.14
     platform: linux/amd64
     build:
       context: ./ms-accounts-graphql
@@ -44,7 +44,7 @@ services:
     environment:
       - MSACCOUNTS_URL=http://accounts:9061/
   customers-graphql:
-    image: mzegarra/ms-customers-graphql-sg:1.0.13
+    image: mzegarra/ms-customers-graphql-sg:1.0.20
     platform: linux/amd64
     build:
       context: ./ms-customers-graphql
@@ -53,9 +53,10 @@ services:
       - "8080:8080"
     environment:
       - MSCUSTOMERS_URL=http://customers:9060/
-      - DB_URL=jdbc:postgresql://csonicdevdb01.postgres.database.azure.com:5432/customers_db?currentSchema=public
-      - DB_USER=csonicadmin
+      - DB_URL=jdbc:singlestore://svc-034eb066-0a94-4be5-ac87-cd30f2986a3c-dml.azr-virginia1-2.svc.singlestore.com:3306/CLIENTESDB?pool=true&maxPoolSize=10
+      - DB_USER=user
       - DB_PASSWORD=pwd
+      - APPLICATIONINSIGHTS_CONNECTION_STRING=InstrumentationKey=d872eb50-2c6a-42df-9ec7-ae144524e740;IngestionEndpoint=https://eastus-8.in.applicationinsights.azure.com/;LiveEndpoint=https://eastus.livediagnostics.monitor.azure.com/
   risks-graphql:
     image: mzegarra/ms-risks-graphql-sg:1.0.2
     platform: linux/amd64
@@ -93,7 +94,7 @@ services:
       - ./data:/var/lib/pgadmin
   gatling_graphql:
     image: mzegarra/docker-qa-stress:latest
-    command: [-s, csonic.customers.Customer3]
+    command: [-s, csonic.customers.Customer5]
     volumes:
       - ./load-test/gatling/results:/opt/gatling/results
       - ./load-test/gatling/user-files:/opt/gatling/user-files

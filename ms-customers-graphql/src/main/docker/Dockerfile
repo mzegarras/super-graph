@@ -12,10 +12,14 @@ RUN export DEBIAN_FRONTEND=noninteractive \
     rm /etc/localtime; \
 	dpkg-reconfigure -fnoninteractive tzdata
 
+COPY src/main/docker/applicationinsights-agent-3.4.19.jar applicationinsights-agent-3.4.19.jar
+COPY src/main/docker/applicationinsights.json applicationinsights.json
+
 ADD build/libs/ms-customers-graphql-*-SNAPSHOT.jar app.jar
 ADD src/main/docker/entrypoint.sh entrypoint.sh
 RUN chmod +x entrypoint.sh
 
+ENV APPLICATIONINSIGHTS_CONNECTION_STRING="CONNECTION-STRING"
 ENV MSCUSTOMERS_URL="http://localhost:9060/"
 
 ENTRYPOINT ["/entrypoint.sh"]

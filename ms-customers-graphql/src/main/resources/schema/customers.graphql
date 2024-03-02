@@ -40,6 +40,7 @@ type Customer @key(fields: "id") {
     email: String!
     createDateTime: DateTime!
     phones:[Phone!]
+    relations:[Customer]
 }
 
 

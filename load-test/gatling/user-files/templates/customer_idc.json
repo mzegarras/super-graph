@@ -1,0 +1,1 @@
+{"query":"query{ customer(filter:{type:DNI,number:\"${idc}\"}){\n  lastName\n  firstName\n  document{\n    type\n    number  }  id}}","variables":{}}
