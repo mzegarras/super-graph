@@ -5,7 +5,7 @@
     platform: linux/amd64
     environment:
       - APOLLO_GRAPH_REF=https://current--super-bank.apollographos.net/graphql
-      - APOLLO_KEY=service:super-bank:1kW4k9OmDlqrZcV1LnR8hg
+      - APOLLO_KEY=service:super-bank:11111
     ports:
       - "4000:4000"
 ````
