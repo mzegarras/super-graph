@@ -14,11 +14,14 @@ class Customer4 extends Simulation {
     val csvData = csv("data/customers_cic.csv").circular
 
     val httpConf01 =
+      //http.baseUrl("https://current--super-bank.apollographos.net")
       http.baseUrl("https://dev-dgs-customers.azurewebsites.net")
 
     val theCommonHeaders = Map(
         "accept" -> "application/json",
         "Content-Type" -> "application/json",
+      "apollographql-client-name" -> "gatling_customer4",
+      "apollographql-client-version" -> "1.0.0"
       )
      
     val scn_customer_gql = scenario("customer-gql")

@@ -14,12 +14,16 @@ class Customer6 extends Simulation {
     val csvCicData = csv("data/customers_cic.csv").circular
     val csvIdcData = csv("data/customers_idc.csv").circular
 
-    val httpConf01 =
-      http.baseUrl("https://dev-dgs-customers.azurewebsites.net")
+  val httpConf01 =
+    //http.baseUrl("https://current--super-bank.apollographos.net")
+    http.baseUrl("https://dev-dgs-customers.azurewebsites.net")
 
-    val theCommonHeaders = Map(
+
+  val theCommonHeaders = Map(
         "accept" -> "application/json",
         "Content-Type" -> "application/json",
+    "apollographql-client-name" -> "gatling_customer6",
+    "apollographql-client-version" -> "1.0.0"
       )
      
     val scn_customer_cic_gql = scenario("customer-cic-gql")
@@ -51,7 +55,7 @@ class Customer6 extends Simulation {
     .exec(scn_customer_idc_gql)
 
     setUp(
-      accountStressAll.inject(constantUsersPerSec(200).during (320.seconds)).protocols(httpConf01)
+      accountStressAll.inject(constantUsersPerSec(100).during (320.seconds)).protocols(httpConf01)
           //scn_customer_gql.inject(rampUsersPerSec(10).to(40).during(60.seconds)).protocols(httpConf01)
           //scn_customer_gql.inject(constantUsersPerSec(100).during (20.seconds)).protocols(httpConf01)
         //scn_customer_gql.inject(constantUsersPerSec(200).during (40.seconds)).protocols(httpConf01)
