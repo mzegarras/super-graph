@@ -9,9 +9,10 @@ import io.gatling.http.request.builder.HttpRequestBuilder.toActionBuilder
 import scala.concurrent.duration._
 import java.time.format.DateTimeFormatter
 
-class Customer5 extends Simulation {
+class Customer6 extends Simulation {
 
-    val csvData = csv("data/customers_cic.csv").circular
+    val csvCicData = csv("data/customers_cic.csv").circular
+    val csvIdcData = csv("data/customers_idc.csv").circular
 
     val httpConf01 =
       http.baseUrl("https://dev-dgs-customers.azurewebsites.net")
@@ -21,10 +22,10 @@ class Customer5 extends Simulation {
         "Content-Type" -> "application/json",
       )
      
-    val scn_customer_gql = scenario("customer-gql")
-    .feed(csvData)
+    val scn_customer_cic_gql = scenario("customer-cic-gql")
+    .feed(csvCicData)
     .exec(
-      http("account-gql")
+      http("account-cic-gql")
         .post("/graphql")
         .headers(theCommonHeaders)
         .body(ElFileBody("templates/customer_cic_3.json")).asJson
@@ -34,8 +35,23 @@ class Customer5 extends Simulation {
 
 
 
+  val scn_customer_idc_gql = scenario("customer-gql")
+    .feed(csvIdcData)
+    .exec(
+      http("account-idc-gql")
+        .post("/graphql")
+        .headers(theCommonHeaders)
+        .body(ElFileBody("templates/customer_idc.json")).asJson
+        .check(status is 200)
+    ).pause(0)
+
+
+  val accountStressAll = scenario("IDC&CIC")
+    .exec(scn_customer_cic_gql)
+    .exec(scn_customer_idc_gql)
+
     setUp(
-          scn_customer_gql.inject(constantUsersPerSec(200).during (60.seconds)).protocols(httpConf01)
+      accountStressAll.inject(constantUsersPerSec(200).during (320.seconds)).protocols(httpConf01)
           //scn_customer_gql.inject(rampUsersPerSec(10).to(40).during(60.seconds)).protocols(httpConf01)
           //scn_customer_gql.inject(constantUsersPerSec(100).during (20.seconds)).protocols(httpConf01)
         //scn_customer_gql.inject(constantUsersPerSec(200).during (40.seconds)).protocols(httpConf01)
