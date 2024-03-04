@@ -94,7 +94,7 @@ services:
       - ./data:/var/lib/pgadmin
   gatling_graphql:
     image: mzegarra/docker-qa-stress:latest
-    command: [-s, csonic.customers.Customer3]
+    command: [-s, csonic.customers.Customer4]
     platform: linux/amd64
     volumes:
       - ./load-test/gatling/results:/opt/gatling/results
