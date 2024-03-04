@@ -44,7 +44,7 @@ services:
     environment:
       - MSACCOUNTS_URL=http://accounts:9061/
   customers-graphql:
-    image: mzegarra/ms-customers-graphql-sg:1.0.20
+    image: mzegarra/ms-customers-graphql-sg:1.0.22
     platform: linux/amd64
     build:
       context: ./ms-customers-graphql
@@ -95,6 +95,7 @@ services:
   gatling_graphql:
     image: mzegarra/docker-qa-stress:latest
     command: [-s, csonic.customers.Customer3]
+    platform: linux/amd64
     volumes:
       - ./load-test/gatling/results:/opt/gatling/results
       - ./load-test/gatling/user-files:/opt/gatling/user-files
