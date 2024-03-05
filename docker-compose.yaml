@@ -95,7 +95,7 @@ services:
   gatling_graphql:
     image: mzegarra/docker-qa-stress:latest
     command: [-s, csonic.customers.Customer4]
-    platform: linux/arm64/v8
+    platform: linux/x86_64 #linux/arm64/v8
     volumes:
       - ./load-test/gatling/results:/opt/gatling/results
       - ./load-test/gatling/user-files:/opt/gatling/user-files
