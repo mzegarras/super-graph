@@ -4,5 +4,12 @@
     "profiler" : {
       "enabled" : false
     }
+  },
+  "instrumentation": {
+    "jdbc": {
+      "masking": {
+        "enabled": false
+      }
+    }
   }
 }

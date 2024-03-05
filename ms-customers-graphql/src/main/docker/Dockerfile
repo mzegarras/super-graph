@@ -12,7 +12,7 @@ RUN export DEBIAN_FRONTEND=noninteractive \
     rm /etc/localtime; \
 	dpkg-reconfigure -fnoninteractive tzdata
 
-COPY src/main/docker/applicationinsights-agent-3.4.19.jar applicationinsights-agent-3.4.19.jar
+COPY src/main/docker/applicationinsights-agent-3.5.0.jar applicationinsights-agent-3.5.0.jar
 COPY src/main/docker/applicationinsights.json applicationinsights.json
 
 ADD build/libs/ms-customers-graphql-*-SNAPSHOT.jar app.jar
