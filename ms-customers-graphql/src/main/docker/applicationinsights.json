@@ -1,15 +1,18 @@
 {
-
-  "preview" : {
-    "profiler" : {
-      "enabled" : false
-    }
-  },
-  "instrumentation": {
-    "jdbc": {
-      "masking": {
-        "enabled": false
+  "sampling": {
+    "percentage": 100,
+    "overrides": [
+      {
+        "telemetryType": "request",
+        "attributes": [
+          {
+            "key": "url.path",
+            "value": "/graphql",
+            "matchType": "strict"
+          }
+        ],
+        "percentage": 100
       }
-    }
+    ]
   }
 }

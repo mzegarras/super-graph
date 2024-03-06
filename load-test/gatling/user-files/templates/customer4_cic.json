@@ -1,0 +1,1 @@
+{"query":"query{\n  customer(filter:{id:\"${cic}\"}){\n    lastName\n    firstName\n    phones{\n      id\n      phone\n    }\n }\n}","variables":{}}

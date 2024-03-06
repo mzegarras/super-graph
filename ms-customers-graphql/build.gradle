@@ -48,9 +48,9 @@ dependencies {
 
 
     // https://mvnrepository.com/artifact/com.microsoft.azure/applicationinsights-core
-    implementation group: 'com.microsoft.azure', name: 'applicationinsights-core', version: '3.5.0'
+    implementation group: 'com.microsoft.azure', name: 'applicationinsights-core', version: '3.4.19'
 // https://mvnrepository.com/artifact/com.microsoft.azure/applicationinsights-web
-    implementation group: 'com.microsoft.azure', name: 'applicationinsights-web', version: '3.5.0'
+    implementation group: 'com.microsoft.azure', name: 'applicationinsights-web', version: '3.4.19'
 
 
 
