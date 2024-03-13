@@ -10,16 +10,22 @@ import net.csonic.customers.graphql.types.Customer;
 import org.dataloader.BatchLoaderEnvironment;
 import org.dataloader.MappedBatchLoaderWithContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
+import java.util.concurrent.Executor;
 import java.util.stream.Collectors;
 
-@DgsDataLoader(name = DgsConstants.CUSTOMER.Relations)
+@DgsDataLoader(name = DgsConstants.CUSTOMER.Relations,maxBatchSize=2)
 public class RelationsDataLoader implements MappedBatchLoaderWithContext<String, List<Customer>> {
     @Autowired
     private CustomerQueryService queryService;
+
+    @Autowired
+    @Qualifier("SlowDataLoaderThreadPool")
+    Executor dedicatedExecutor;
 
     @Override
     public CompletionStage<Map<String, List<Customer>>> load(Set<String> keys, BatchLoaderEnvironment environment) {
@@ -36,7 +42,7 @@ public class RelationsDataLoader implements MappedBatchLoaderWithContext<String,
                                         .collect(Collectors.toList()))
                         );
 
-        return CompletableFuture.supplyAsync(() -> relationsMap);
+        return CompletableFuture.supplyAsync(() -> relationsMap,dedicatedExecutor);
     }
 
 

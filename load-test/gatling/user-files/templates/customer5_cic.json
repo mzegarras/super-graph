@@ -1,1 +1,1 @@
-{"query":"query{\n  customer(filter:{id:\"${cic}\"}){\n    lastName\n    firstName\n    phones{\n      id\n      phone\n    }\n    relations{\n      lastName\n      firstName\n      document{\n        type\n        number\n      }\n\n      \n    }\n  }\n}","variables":{}}
+{"query":"query{\n  customer(filter:{id:\"${cic}\"}){\n    lastName\n    firstName\n    relations{\n      lastName\n      firstName\n      document{\n        type\n        number\n      }\n\n      \n    }\n  }\n}","variables":{}}

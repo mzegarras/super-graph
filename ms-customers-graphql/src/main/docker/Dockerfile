@@ -1,4 +1,4 @@
-FROM openjdk:22-ea-17-jdk-slim-bullseye
+FROM openjdk:20-slim
 
 VOLUME /tmp
 RUN export DEBIAN_FRONTEND=noninteractive \
