@@ -47,7 +47,7 @@ public class CustomerQueryService {
 
     public Map<String, List<RelationEntity>> findRelationsCustomer(List<String> customerId){
 
-        return customerDao.findRelationsAll(customerId)
+        return customerDao.findRelationsAllV2(customerId)
                 .stream()
                 .collect( Collectors.groupingBy(RelationEntity::getParentId));
     }

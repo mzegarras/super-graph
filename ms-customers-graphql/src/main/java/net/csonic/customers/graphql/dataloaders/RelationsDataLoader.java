@@ -31,6 +31,7 @@ public class RelationsDataLoader implements MappedBatchLoaderWithContext<String,
                         .collect(Collectors.toMap(Map.Entry::getKey,
                                 list -> list.getValue()
                                         .stream()
+                                        .filter(e->e.getCustomer()!=null)
                                         .map(e->GraphqlBeanMapper.mapToGraphql(e.getCustomer()))
                                         .collect(Collectors.toList()))
                         );

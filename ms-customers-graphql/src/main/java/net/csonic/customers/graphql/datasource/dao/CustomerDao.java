@@ -6,6 +6,7 @@ import net.csonic.customers.graphql.datasource.entity.RelationEntity;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,5 +22,6 @@ public interface CustomerDao {
     List<PhoneEntity> findPhoneAll(List<String> lstCustomerId);
 
     List<RelationEntity> findRelationsAll(List<String> lstCustomerId);
+    List<RelationEntity> findRelationsAllV2(List<String> lstCustomerId);
 
 }

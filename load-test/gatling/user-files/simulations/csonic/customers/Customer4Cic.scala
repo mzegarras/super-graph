@@ -39,7 +39,7 @@ class Customer4Cic extends Simulation {
 
 
     setUp(
-          scn_customer_gql.inject(constantUsersPerSec(200).during (30.seconds)).protocols(httpConf01)
+          scn_customer_gql.inject(constantUsersPerSec(200).during (200.seconds)).protocols(httpConf01)
           //scn_customer_gql.inject(rampUsersPerSec(10).to(40).during(60.seconds)).protocols(httpConf01)
           //scn_customer_gql.inject(constantUsersPerSec(100).during (20.seconds)).protocols(httpConf01)
         //scn_customer_gql.inject(constantUsersPerSec(200).during (40.seconds)).protocols(httpConf01)

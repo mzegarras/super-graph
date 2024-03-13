@@ -41,6 +41,7 @@ class Customer3Idc extends Simulation {
         //scn_customer_gql.inject(constantUsersPerSec(120).during (60.seconds)).protocols(httpConf01)
 
           scn_customer_gql.inject(constantUsersPerSec(200).during (120.seconds)).protocols(httpConf01)
+          //scn_customer_gql.inject(rampUsersPerSec(50).to(200).during(90.seconds)).protocols(httpConf01)
         //scn_customer_gql.inject(constantUsersPerSec(200).during (40.seconds)).protocols(httpConf01)
         //scn_customer_gql.inject(rampUsersPerSec(50).to(100).during(90.seconds)).protocols(httpConf01)
         //scn_customer_gql.inject(rampUsersPerSec(50).to(100).during(90.seconds)).protocols(httpConf01)

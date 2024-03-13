@@ -17,6 +17,7 @@ public class RelationEntity {
 
 
     private String parentId;
+    private String customerId;
     private CustomerEntity customer;
 
     public String getParentId() {
@@ -33,5 +34,13 @@ public class RelationEntity {
 
     public void setCustomer(CustomerEntity customer) {
         this.customer = customer;
+    }
+
+    public String getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
     }
 }
