@@ -1,4 +1,6 @@
-FROM openjdk:20-slim
+FROM openjdk:21-slim
+#FROM mcr.microsoft.com/openjdk/jdk:21-ubuntu
+
 
 VOLUME /tmp
 RUN export DEBIAN_FRONTEND=noninteractive \
