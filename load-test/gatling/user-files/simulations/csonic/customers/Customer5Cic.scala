@@ -42,8 +42,10 @@ class Customer5Cic extends Simulation {
   val accountStressAll = scenario("CIC")
     .exec(scn_customer_cic_gql)
 
+
     setUp(
-      accountStressAll.inject(constantUsersPerSec(200).during (30.seconds)).protocols(httpConf01)
+      accountStressAll.inject(rampUsers(10).during(60.seconds)).protocols(httpConf01)
+          //accountStressAll.inject(constantUsersPerSec(200).during (60.seconds)).protocols(httpConf01)
           //accountStressAll.inject(rampUsersPerSec(200).to(201).during(60.seconds)).protocols(httpConf01)
           //scn_customer_gql.inject(constantUsersPerSec(100).during (20.seconds)).protocols(httpConf01)
         //scn_customer_gql.inject(constantUsersPerSec(200).during (40.seconds)).protocols(httpConf01)

@@ -1,4 +1,4 @@
-FROM openjdk:21-slim
+FROM openjdk:20-slim
 #FROM mcr.microsoft.com/openjdk/jdk:21-ubuntu
 
 

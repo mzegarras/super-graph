@@ -25,24 +25,28 @@ public class RelationsDataLoader implements MappedBatchLoaderWithContext<String,
 
     @Autowired
     @Qualifier("SlowDataLoaderThreadPool")
-    Executor dedicatedExecutor;
+    private Executor dedicatedExecutor;
 
     @Override
     public CompletionStage<Map<String, List<Customer>>> load(Set<String> keys, BatchLoaderEnvironment environment) {
-        var relations = queryService.findRelationsCustomer (new ArrayList<>(keys));
 
+        return CompletableFuture.supplyAsync(() -> {
 
-        var relationsMap = relations.entrySet()
-                        .stream()
-                        .collect(Collectors.toMap(Map.Entry::getKey,
-                                list -> list.getValue()
-                                        .stream()
-                                        .filter(e->e.getCustomer()!=null)
-                                        .map(e->GraphqlBeanMapper.mapToGraphql(e.getCustomer()))
-                                        .collect(Collectors.toList()))
-                        );
+                    var relations = queryService.findRelationsCustomer (new ArrayList<>(keys));
 
-        return CompletableFuture.supplyAsync(() -> relationsMap,dedicatedExecutor);
+                    return relations.entrySet()
+                            .stream()
+                            .collect(Collectors.toMap(Map.Entry::getKey,
+                                    list -> list.getValue()
+                                            .stream()
+                                            .filter(e->e.getCustomer()!=null)
+                                            .map(e->GraphqlBeanMapper.mapToGraphql(e.getCustomer()))
+                                            .collect(Collectors.toList()))
+                            );
+
+                },
+
+                dedicatedExecutor);
     }
 
 
