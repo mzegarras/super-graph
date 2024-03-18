@@ -44,7 +44,7 @@ services:
     environment:
       - MSACCOUNTS_URL=http://accounts:9061/
   customers-graphql:
-    image: mzegarra/ms-customers-graphql-sg:2.0.0
+    image: mzegarra/ms-customers-graphql-sg:2.0.1
     platform: linux/amd64
     build:
       context: ./ms-customers-graphql
