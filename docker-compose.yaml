@@ -44,7 +44,7 @@ services:
     environment:
       - MSACCOUNTS_URL=http://accounts:9061/
   customers-graphql:
-    image: mzegarra/ms-customers-graphql-sg:2.0.1
+    image: mzegarra/ms-customers-graphql-sg:2.0.3
     platform: linux/amd64
     build:
       context: ./ms-customers-graphql
@@ -102,3 +102,20 @@ services:
     environment:
       - ENABLE_DOCKER=true
       - ENABLE_REPLY=false
+  collector:
+    image: otel/opentelemetry-collector-contrib
+    volumes:
+      - ./collector/collector.yml:/etc/otel-collector-config.yaml
+    command: ["--config=/etc/otel-collector-config.yaml"]
+    ports:
+      - "8889:8889"
+      - "4317:4317"
+      - "4318:4318"
+  prometheus:
+    image: prom/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    volumes:
+      - ./prometheus/:/etc/prometheus/
+    ports:
+      - 9464:9090

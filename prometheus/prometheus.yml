@@ -1,0 +1,10 @@
+global:
+  scrape_interval: 1s # Default is every 1 minute.
+
+scrape_configs:
+  - job_name: 'dice-service'
+    scrape_interval: 5s
+#    static_configs:
+#      - targets: [ host.docker.internal:9464 ]
+    static_configs:
+      - targets: ['collector:8889']

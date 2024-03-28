@@ -16,10 +16,17 @@ repositories {
     mavenCentral()
 }
 
+dependencyManagement {
+    imports {
+        mavenBom("io.opentelemetry:opentelemetry-bom:1.36.0")
+    }
+}
+
+
 dependencies {
     implementation 'com.netflix.graphql.dgs:graphql-dgs-webflux-starter'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    //implementation 'org.springframework.boot:spring-boot-starter-actuator'
 
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -33,7 +40,7 @@ dependencies {
     implementation 'com.netflix.graphql.dgs:graphql-dgs-spring-boot-starter'
     implementation 'com.netflix.graphql.dgs:graphql-dgs-extended-scalars'
     //https://tinnakorn.cs.rmu.ac.th/Courses/Tutorial/Java.Spring.Modern.API.Development.with.Spring.6.and.Spring.Boot.3.2nd.Edition/OEBPS/B19349_14.xhtml
-    implementation group: 'com.netflix.graphql.dgs', name: 'graphql-dgs-spring-boot-micrometer'
+    //implementation group: 'com.netflix.graphql.dgs', name: 'graphql-dgs-spring-boot-micrometer'
 
 
     implementation 'net.datafaker:datafaker:2.0.2'
@@ -48,10 +55,20 @@ dependencies {
 
 
     // https://mvnrepository.com/artifact/com.microsoft.azure/applicationinsights-core
-    implementation group: 'com.microsoft.azure', name: 'applicationinsights-core', version: '3.4.19'
+    //implementation group: 'com.microsoft.azure', name: 'applicationinsights-core', version: '3.4.19'
 // https://mvnrepository.com/artifact/com.microsoft.azure/applicationinsights-web
-    implementation group: 'com.microsoft.azure', name: 'applicationinsights-web', version: '3.4.19'
+    //implementation group: 'com.microsoft.azure', name: 'applicationinsights-web', version: '3.4.19'
 
+
+    implementation("io.opentelemetry:opentelemetry-api");
+    implementation("io.opentelemetry:opentelemetry-sdk");
+    implementation("io.opentelemetry:opentelemetry-exporter-logging");
+    implementation 'io.opentelemetry:opentelemetry-exporter-otlp:1.36.0'
+
+    implementation("io.opentelemetry.semconv:opentelemetry-semconv:1.23.1-alpha");
+    implementation("io.opentelemetry:opentelemetry-sdk-extension-autoconfigure");
+
+    implementation 'io.opentelemetry:opentelemetry-exporter-prometheus:1.36.0-alpha'
 
 
 
