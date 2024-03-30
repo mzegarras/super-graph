@@ -15,14 +15,14 @@ import static io.opentelemetry.semconv.ResourceAttributes.SERVICE_NAME;
 public class MsCustomersGraphqlApplication {
 
 
-    @Bean
+  /*  @Bean
     public OpenTelemetry openTelemetry() {
 
 
         return AutoConfiguredOpenTelemetrySdk.initialize().getOpenTelemetrySdk();
 
 
-    }
+    }*/
 
     public static void main(String[] args) {
         SpringApplication.run(MsCustomersGraphqlApplication.class, args);

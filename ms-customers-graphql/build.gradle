@@ -26,7 +26,7 @@ dependencyManagement {
 dependencies {
     implementation 'com.netflix.graphql.dgs:graphql-dgs-webflux-starter'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    //implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
 
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -40,7 +40,7 @@ dependencies {
     implementation 'com.netflix.graphql.dgs:graphql-dgs-spring-boot-starter'
     implementation 'com.netflix.graphql.dgs:graphql-dgs-extended-scalars'
     //https://tinnakorn.cs.rmu.ac.th/Courses/Tutorial/Java.Spring.Modern.API.Development.with.Spring.6.and.Spring.Boot.3.2nd.Edition/OEBPS/B19349_14.xhtml
-    //implementation group: 'com.netflix.graphql.dgs', name: 'graphql-dgs-spring-boot-micrometer'
+    implementation group: 'com.netflix.graphql.dgs', name: 'graphql-dgs-spring-boot-micrometer'
 
 
     implementation 'net.datafaker:datafaker:2.0.2'
