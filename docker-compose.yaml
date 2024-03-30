@@ -57,6 +57,31 @@ services:
       - DB_USER=user
       - DB_PASSWORD=pwd
       - APPLICATIONINSIGHTS_CONNECTION_STRING=InstrumentationKey=d872eb50-2c6a-42df-9ec7-ae144524e740;IngestionEndpoint=https://eastus-8.in.applicationinsights.azure.com/;LiveEndpoint=https://eastus.livediagnostics.monitor.azure.com/
+  customers-graphql-otel:
+    image: mzegarra/ms-customers-graphql-otel-sg:1.0.0
+    platform: linux/amd64
+    build:
+      context: ./ms-customers-graphql
+      dockerfile: ./src/main/docker/DockerfileOTEL
+    ports:
+      - "8080:8080"
+    environment:
+      - MSCUSTOMERS_URL=http://customers:9060/
+      #- DB_URL=jdbc:singlestore://dddd:3306/CLIENTESDB?pool=true&maxPoolSize=10
+      #- DB_USER=user
+      #- DB_PASSWORD=pwd
+      - JAVA_TOOL_OPTIONS="-javaagent:/opentelemetry-javaagent.jar"
+      - OTEL_SERVICE_NAME=graphQL-customers
+      - OTEL_TRACES_EXPORTER=otlp
+      - OTEL_METRICS_EXPORTER=otlp
+      - OTEL_LOGS_EXPORTER=otlp
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://collector:4317
+      - OTEL_EXPORTER_OTLP_PROTOCOL=grpc
+    env_file:
+      - path: default.env
+        required: true
+    depends_on:
+      - collector
   risks-graphql:
     image: mzegarra/ms-risks-graphql-sg:1.0.2
     platform: linux/amd64
@@ -103,7 +128,7 @@ services:
       - ENABLE_DOCKER=true
       - ENABLE_REPLY=false
   collector:
-    image: otel/opentelemetry-collector-contrib
+    image: otel/opentelemetry-collector-contrib:latest
     volumes:
       - ./collector/collector.yml:/etc/otel-collector-config.yaml
     command: ["--config=/etc/otel-collector-config.yaml"]
@@ -111,6 +136,8 @@ services:
       - "8889:8889"
       - "4317:4317"
       - "4318:4318"
+    depends_on:
+      - jaeger
   prometheus:
     image: prom/prometheus
     command:
@@ -119,3 +146,18 @@ services:
       - ./prometheus/:/etc/prometheus/
     ports:
       - 9464:9090
+  jaeger:
+    image: jaegertracing/all-in-one:1.55
+    container_name: jaeger-server
+    ports:
+      - "5775:5775"
+      - "6831:6831"
+      - "6832:6832"
+      - "5778:5778"
+      - "16686:16686"
+      #- "4317:4317"
+      #- "4318:4318"
+      - "14250:14250"
+      - "14268:14268"
+      - "14269:14269"
+      - "9411:9411"

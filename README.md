@@ -1,3 +1,9 @@
+# Jaeger 
+   * http://localhost:16686/search
+
+# Prometheus
+   * http://localhost:9464
+
 # GraphQL - Mock Server
 ![Architecture](./assets/images/1_architecture.png)
 1.  Endpoint

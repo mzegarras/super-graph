@@ -8,11 +8,18 @@ receivers:
 exporters:
   debug:
     verbosity: detailed
+  # Data sources: traces
+  otlp/jaeger:
+    endpoint: jaeger-server:4317
+    tls:
+      insecure: true
+  azuremonitor:
+    connection_string: "InstrumentationKey=dddd;IngestionEndpoint=https://dddd/;LiveEndpoint=https://dddmonitor.azure.com/"
 service:
   pipelines:
     traces:
       receivers: [otlp]
-      exporters: [debug]
+      exporters: [debug,otlp/jaeger]
     metrics:
       receivers: [otlp]
       exporters: [debug]
